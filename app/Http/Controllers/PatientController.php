@@ -76,8 +76,8 @@ class PatientController extends Controller {
 	 */
 	public function edit(Patient $patient) {
 		$now = new \DateTime();
-
-		return view('patients.edit', compact('now'));
+		$id = $patient->id;
+		return view('patients.edit', compact('now', 'id')); 
 
 	}
 

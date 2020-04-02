@@ -68,10 +68,22 @@
                         	<td style="vertical-align:middle;"><a href="#" class="show text-decoration-none" data-id="{{ $patient->id }}"><i class="fas fa-folder-open"></i> {{ $patient->patient_code }}</a></td>
                             <td style="vertical-align:middle;">{{ ucwords($patient->name1 .' '. $patient->name2) }}</td>
                             <td style="vertical-align:middle;">{{ ucwords($patient->surname1. ' ' .$patient->surname2) }}</td>
-                            <td style="vertical-align:middle;"><a class="text-decoration-none" href="mailto:{{ $patient->email }}">{{ $patient->email }}</a></td>
                             <td style="vertical-align:middle;">
+                                @if(!empty($patient->email))
+                                <a class="text-decoration-none" href="mailto:{{ $patient->email }}">{{ $patient->email }}
+                                </a>
+                                @else
+                                <span class="font-weight-bold">Sin email</span>
+                                @endif
+                            </td>
+                            <td style="vertical-align:middle;">
+                                @if(!empty($patient->phone1 or $patient->phone2))
                                 <a class="text-decoration-none" href="tel:{{ $patient->phone1 }}">{{ $patient->phone1 }}</a><br>
                                 <a class="text-decoration-none" href="tel:{{ $patient->phone2 }}">{{ $patient->phone2 }}</a>
+                                @else
+                                <span class="font-weight-bold">Sin Telefonos</span>
+                                @endif
+                                
                             </td>
                             <td>{{$patient->document_type}}<br>{{$patient->document}}</td>
                             <td class="font-weight-bold" style="vertical-align:middle; color: {{ $patient->status === "active" ? "#1cc88a" : "grey" }}" data-id="{{ $patient->id }}">{{ ucwords(__($patient->status))}}</td>
