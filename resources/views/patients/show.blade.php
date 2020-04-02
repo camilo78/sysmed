@@ -25,18 +25,30 @@
                             @else(\Carbon\Carbon::parse($patient->date)->age < 3)
                                 {{ \Carbon\Carbon::parse($patient->birth)->age }} Años y
                                 {{ \Carbon\Carbon::parse($patient->birth)->diff(\Carbon\Carbon::now())->format('%m meses') }}
-                                @endif </span> <span class="float-md-right small">
-                                @if($patient->city_town)<i class="fas fa-map-marked-alt"></i>
-                                {{ $patient->city_town }}&nbsp; @endif
-                                @if($patient->phone1) <a class="show text-decoration-none"
-                                    href="tel:{{ $patient->phone1 }}"><i class="fas fa-mobile-alt"></i>
-                                    {{ $patient->phone1 }}</a>&nbsp; @endif
-                                @if($patient->phone2) <a class="show text-decoration-none"
-                                    href="tel:{{ $patient->phone2 }}"><i class="fas fa-phone"></i>
-                                    {{ $patient->phone2 }}</a>&nbsp; @endif
-                                @if($patient->email) <a class="show text-decoration-none"
-                                    href="mailto:{{ $patient->email }}"><i class="fas fa-envelope"></i>
-                                    {{ $patient->email }}</a>&nbsp; @endif
+                            @endif </span> <span class="float-md-right small">
+                            @if($patient->city_town)<i class="fas fa-map-marked-alt"></i>
+                                {{ $patient->city_town }}&nbsp;
+                            @else
+                                <i class="fas fa-map-marked-alt"></i> Sin Dirección &nbsp;
+                            @endif
+                            @if($patient->phone1) <a class="show text-decoration-none"
+                                href="tel:{{ $patient->phone1 }}"><i class="fas fa-mobile-alt"></i>
+                                {{ $patient->phone1 }}</a>&nbsp; 
+                            @else
+                                <i class="fas fa-mobile-alt"></i> Sin Teléfono &nbsp; 
+                            @endif
+                            @if($patient->phone2) <a class="show text-decoration-none"
+                                href="tel:{{ $patient->phone2 }}"><i class="fas fa-phone"></i>
+                                {{ $patient->phone2 }}</a>&nbsp; 
+                            @else
+                                <i class="fas fa-phone"></i> Sin Teléfono &nbsp; 
+                            @endif
+                            @if($patient->email) <a class="show text-decoration-none"
+                                href="mailto:{{ $patient->email }}"><i class="fas fa-envelope"></i>
+                                {{ $patient->email }}</a>&nbsp; 
+                            @else
+                                <i class="fas fa-envelope"></i> Sin email &nbsp;
+                            @endif
                         </span>
                         <br><br>
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
