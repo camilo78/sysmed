@@ -1,0 +1,35 @@
+
+
+.alerta {
+    max-width: 310px;
+    position: absolute;
+    /*padding-top: 15px;*/
+    padding-bottom: 0px;
+    font-size: smaller;
+    top: -40px;
+    right: 14px;
+    z-index: 5000;
+    -webkit-box-shadow: 2px 2px 5px 3px rgba(0, 0, 0, 0.34);
+    -moz-box-shadow: 2px 2px 5px 3px rgba(0, 0, 0, 0.34);
+    box-shadow: 2px 2px 5px 3px rgba(0, 0, 0, 0.34);
+}
+
+
+.space {
+    margin-top:10px
+}
+
+.tab-pane{
+        border-left: solid 1px #dddfeb;
+        border-bottom: solid 1px #dddfeb;
+        border-right: solid 1px #dddfeb;
+        background-color: #EFF5FB;
+        border-bottom-right-radius: 7px;
+        border-bottom-left-radius: 7px;
+    }
+.active{
+        background-color: #EFF5FB!important;
+}
+.s_up{
+        margin-top: 15px!important;
+    }
