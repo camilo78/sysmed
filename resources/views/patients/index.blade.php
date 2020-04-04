@@ -85,7 +85,13 @@
                                 @endif
                                 
                             </td>
-                            <td>{{$patient->document_type}}<br>{{$patient->document}}</td>
+                            <td style="vertical-align:middle;">
+                                @if(!empty($patient->document_type))
+                                {{ __("$patient->document_type")}}<br>{{$patient->document}}
+                                @else
+                                <span class="font-weight-bold">Sin Documento</span>
+                                @endif 
+                            </td> 
                             <td class="font-weight-bold" style="vertical-align:middle; color: {{ $patient->status === "active" ? "#1cc88a" : "grey" }}" data-id="{{ $patient->id }}">{{ ucwords(__($patient->status))}}</td>
                             <td style="vertical-align:middle;">
                                 @if(\Carbon\Carbon::parse($patient->birth)->age === 0)
@@ -109,7 +115,7 @@
                                         @can('patients.destroy')
                                         <button class="btn btn-outline-danger btn-sm submit" type="button"
                                             data-id="{{ $patient->id }}"
-                                            data-msj="¿Realmente quiere eliminar los datos de <b>{{ $patient->name }}</b>?"
+                                            data-msj="¿Realmente quiere eliminar los datos de <b>{{ $patient->name1 .' '. $patient->surname1 }}</b>?"
                                             type="button"><i class="fas fa-trash-alt"></i>
                                         </button>
                                     </div>

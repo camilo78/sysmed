@@ -17,6 +17,13 @@ class PatientController extends Controller {
 		return view('patients.index', compact('patients'));
 	}
 
+	public function trash(Request $request)
+    {
+
+        $patients = Patient::search($request->name)->onlyTrashed()->paginate(5);
+        return view('patients.trash', compact('patients'));
+    }
+
 	/**
 	 * Show the form for creating a new resource.
 	 *
@@ -55,7 +62,7 @@ class PatientController extends Controller {
 
 		$patient = Patient::create($request->all());
 
-		return redirect()->route('patients.index')->with('info', "El Pasiente " . $request->name1 . " " . $request->surname1 . "se registró a en el sistema con exito");
+		return redirect()->route('patients.index')->with('info', "El Pasiente " . $request->name1 . " " . $request->surname1 . " se registró a en el sistema con exito");
 	}
 
 	/**
@@ -77,7 +84,8 @@ class PatientController extends Controller {
 	public function edit(Patient $patient) {
 		$now = new \DateTime();
 		$id = $patient->id;
-		return view('patients.edit', compact('now', 'id')); 
+		//dd($patient);
+		return view('patients.edit', compact('patient', 'now', 'id')); 
 
 	}
 
@@ -88,8 +96,19 @@ class PatientController extends Controller {
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update(Request $request, $id) {
-		//
+	public function update(Request $request, Patient $patient) {
+		$request->validate([
+			'name1' => 'required',
+			'surname1' => 'required',
+			'gender' => 'required',
+			'birth' => 'required|before_or_equal:now',
+		], [
+			'birth.before_or_equal' => 'La fecha de nacimiento debe ser anterior o igual a la fecha de hoy.',
+		]);
+
+		$patient->update($request->all());
+
+		return redirect()->route('patients.index')->with('info', "El Pasiente " . $request->name1 . " " . $request->surname1 . " se editó con exito");
 	}
 
 	/**
@@ -98,7 +117,20 @@ class PatientController extends Controller {
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy($id) {
-		//
+	public function destroy(Request $request, Patient $patient) {
+		$patient->status = "disabled";
+		$patient->update($request->all());
+		$patient->delete();
+        return back()->with('info', "Los datos de $patient->name1 $patient->surname1 fueron eliminados correctamente");
 	}
+
+	public function restore($id)
+    {
+        $restore = Patient::onlyTrashed()->where('id', $id);
+        $restore->restore();
+        $patient = Patient::find($id);
+        return back()->with('info', "Los datos de $patient->name1 $patient->surname1 fueron restaurados correctamente");
+    }
+
+
 }

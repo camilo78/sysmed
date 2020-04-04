@@ -10,7 +10,7 @@
 @endif
 
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12"> 
         <div class="card border-left-primary shadow h-100 py-2">
             <div class="card-body" style="margin-top:-20px">
                 <div class="row">
@@ -18,8 +18,8 @@
                         <h1 class="h3 mb-4 text-gray-800"><i class="fas fa-fw fa-user"></i> Editar Paciente</h1>
                     </div>
                     <div class="col-md-12 mx-auto">
-                        {!! Form::open(['route' => 'patients.store']) !!}
-
+                        {!! Form::model($patient, ['route' => ['patients.update',$patient->id],
+                        'method' => 'PUT']) !!}
                         @include('patients.partials.form')
 
                         {!! Form::close() !!}
@@ -128,10 +128,17 @@
         return edad + " años, " + meses + " meses y " + dias + " días";
     }
 
+    $( document ).ready(function() {
+        var x = $('#birth').val();
+        age = calcularEdad(x);
+        $("#age").val(age);
+    });
+
+
 	$('#birth').focusout(function() {
-	 var x = $(this).val();
-	 age = calcularEdad(x);
-	  $("#age").val(age);
+    	var x = $(this).val();
+    	age = calcularEdad(x);
+    	$("#age").val(age);
 	});
 
 

@@ -103,7 +103,7 @@ Route::middleware(['auth'])->group(function () {
 	Route::get('patients/create', 'PatientController@create')->name('patients.create')
 		->middleware('can:patients.create');
 
-	Route::get('patients/trash', 'UserController@trash')->name('patients.trash')
+	Route::get('patients/trash', 'PatientController@trash')->name('patients.trash')
 		->middleware('can:patients.trash');
 
 	Route::put('patients/{patient}', 'PatientController@update')->name('patients.update')
@@ -120,5 +120,8 @@ Route::middleware(['auth'])->group(function () {
 
 	Route::delete('patients/{patient}', 'PatientController@destroy')->name('patients.destroy')
 		->middleware('can:patients.destroy');
+
+	Route::get('/patients/restore/{id}', 'PatientController@restore')->name('patients.restore')
+		->middleware('can:patients.restore');	
 
 });

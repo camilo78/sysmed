@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Caffeinated\Shinobi\Models\Role;
 use Carbon\Carbon;
-use Jenssegers\Date\Date;
+use Jenssegers\Date\Date; 
 use PDF;
 use App\User;
 
