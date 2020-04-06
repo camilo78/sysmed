@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Patient;
 use App\Setting;
+use App\Exports\PatientsExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Jenssegers\Date\Date; 
@@ -31,6 +33,11 @@ class PatientController extends Controller {
         $pdf = PDF::loadView('pdfs.Pacientes', compact('patients', 'date', 'settings'))->setPaper('a4', 'landscape');
 
         return $pdf->download('Patient.pdf');
+    }
+
+    public function exportxlsx()
+    {
+        return Excel::download(new PatientsExport, 'Patient.xlsx');
     }
 
 	public function trash(Request $request)
