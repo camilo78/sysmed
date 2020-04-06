@@ -14,9 +14,8 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" ></script>
     <script src="{{ asset('js/custom.js') }}" ></script>
-    <script src="{{ asset('js/sb-admin-2.min.js') }}" defer></script>
+    
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -71,7 +70,8 @@
         </div>
         <!-- End of Page Wrapper -->
     </div>
-
+<script src="{{ asset('js/app.js') }}"></script> 
+<script src="{{ asset('js/sb-admin-2.min.js') }}" ></script>
     @yield('js')
 </body>
 

@@ -12,11 +12,11 @@ use Carbon\Carbon;
 use Jenssegers\Date\Date; 
 use PDF;
 use App\User;
-
+use App\Setting;
 
 
 class UserController extends Controller
-{
+{   
 
     /**
      * Display a listing of the resource.
@@ -45,10 +45,11 @@ class UserController extends Controller
     public function exportPDF(User $user)
     {
         $users = User::all();
+        $settings = Setting::all();
         \Date::setLocale('es');
         $data = Carbon::now();
         $date = Date::parse($data)->format('l j F Y');
-        $pdf = PDF::loadView('pdfs.Usuarios', compact('users', 'date'));
+        $pdf = PDF::loadView('pdfs.Usuarios', compact('users', 'date', 'settings'));
 
         return $pdf->download('Usuarios.pdf');
     }

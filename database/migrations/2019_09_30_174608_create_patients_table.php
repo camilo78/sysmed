@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 class CreatePatientsTable extends Migration {
 	/**
 	 * Run the migrations.
-	 *
+	 * 
 	 * @return void
 	 */
 	public function up() {
@@ -22,7 +22,7 @@ class CreatePatientsTable extends Migration {
 			$table->string('married_name', 25)->nullable();
 			$table->enum('gender', ['M', 'F']);
 			$table->string('birth', 25);
-			$table->string('patient_code', 25)->nullable();
+			$table->string('patient_code', 25);
 			$table->string('document_type', 25)->nullable();
 			$table->string('document', 25)->nullable();
 			$table->enum('status', ['active', 'disabled'])->default('active');

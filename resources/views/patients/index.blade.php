@@ -47,7 +47,7 @@
                         </form>
                     </div>
                 </div>
-                <table class="table table-hover table-responsive-sm small">
+                <table class="table table-hover table-responsive-lg small">
                     <thead>
                         <tr>
                         	<th scope="col">Expediente</th>
@@ -141,6 +141,7 @@
 @section('css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
 
+
 <style>
     .show{
         color:orange;
@@ -153,13 +154,13 @@
 @endsection
 
 @section('js')
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+
 <script type="text/javascript">
     var URLSHOW = '{{URL::to('patients')}}/';
 
     $( document ).ready(function() {
-
+    
     $('.show').click(function() {
         var id = $(this).attr('data-id')
         window.location.href = URLSHOW + id;

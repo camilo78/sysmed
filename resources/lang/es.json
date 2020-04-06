@@ -57,5 +57,9 @@
     "Father": "Padre",
     "Son or Daughter": "Hijo(a)",
     "Aunt or Uncle": "Tío(a)",
-    "Cousin":"Primo(a)"
+    "Cousin":"Primo(a)",
+    "active":"activo",
+    "disabled":"inactivo",
+    "Spouse":"Cónyugue",
+    "Other":"Otro"
 }

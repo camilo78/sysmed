@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Patient;
+use App\Setting;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+use Jenssegers\Date\Date; 
+use PDF;
 
 class PatientController extends Controller {
 	/**
@@ -17,10 +21,22 @@ class PatientController extends Controller {
 		return view('patients.index', compact('patients'));
 	}
 
+	public function exportPDF(Patient $patient)
+    {
+        $patients = Patient::all();
+        $settings = Setting::all();
+        \Date::setLocale('es');
+        $data = Carbon::now();
+        $date = Date::parse($data)->format('l j F Y');
+        $pdf = PDF::loadView('pdfs.Pacientes', compact('patients', 'date', 'settings'))->setPaper('a4', 'landscape');
+
+        return $pdf->download('Patient.pdf');
+    }
+
 	public function trash(Request $request)
     {
 
-        $patients = Patient::search($request->name)->onlyTrashed()->paginate(5);
+        $patients = Patient::search($request->name)->onlyTrashed()->orderBy('id', 'DESC')->paginate(5);
         return view('patients.trash', compact('patients'));
     }
 

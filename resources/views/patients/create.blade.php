@@ -34,20 +34,22 @@
 @endsection
 
 @section('css')
-<style>
-
-
-</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/RobinHerbots/jquery.inputmask@5.0.0-beta.87/css/inputmask.css">
 @endsection
 
 @section('js')
-<script>
-	var ip = '190.242.25.31'
-	var access_key = '4f1c52339ca07506aca804b35ebac390';
+<script src="https://cdn.jsdelivr.net/gh/RobinHerbots/jquery.inputmask@5.0.0-beta.87/dist/jquery.inputmask.min.js"></script>
 
-	$.get('http://api.ipstack.com/' + ip + '?access_key=' + access_key, function(response) {
-		$("#country").val(response.country_name);
-	}, "jsonp");
+<script>
+
+    $.getJSON('https://api.ipify.org?format=json', function(data){
+        var ip = data.ip;
+        var access_key = '4f1c52339ca07506aca804b35ebac390';
+        $.get('http://api.ipstack.com/' + ip + '?access_key=' + access_key, function(response) {
+        $("#country").val(response.country_name);
+        }, "jsonp");
+    });
+
 
 	function mostrar_control(){
         var select = document.getElementById("myselect");
@@ -177,6 +179,8 @@
 
 	});
 
+// Initialize InputMask
+    $(":input").inputmask();
 
 </script>
 @endsection

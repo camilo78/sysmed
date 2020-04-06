@@ -5,58 +5,64 @@
 <style type="text/css">
 	/* Curso CSS estilos aprenderaprogramar.com*/
 body {
-	font-family: Arial, Helvetica, sans-serif;
-	color: #669; 
+    font-family: Arial, Helvetica, sans-serif;
+    color: #669; 
 }
 h1{
-	font-size: 24px;
-	font-weight: 700;
-	text-align: center;
-	line-height:5px
-	text-transform: uppercase;
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+    line-height:5px
+    text-transform: uppercase;
 }
 p{
-	text-align: center;
-	line-height:5px
+    line-height:5px
 }
 table {     
-	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
-    font-size: 12px;    
+    font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+    font-size: 11px;    
     width: 100%; 
     text-align: left;   
     border-collapse: collapse; 
 }
 
 th {     
-	font-size: 13px;     
-	font-weight: normal;     
-	padding: 8px;     
-	background: #b9c9fe;
+    text-align: left;
+    font-size: 13px;     
+    font-weight: normal;     
+    padding: 8px;     
+    background: #b9c9fe;
     border-top: 4px solid #aabcfe;    
     border-bottom: 1px solid #fff; 
     color: #039; 
 }
 
 td {    
-	padding: 8px;     
-	background: #e8edff;     
-	border-bottom: 1px solid #fff;
+    padding: 8px;     
+    background: #e8edff;     
+    border-bottom: 1px solid #fff;
     color: #669;   
     border-top: 1px solid transparent; 
  }
 
  .footer{
- 	font-size: xx-small;
- 	margin-top: 5px;
- 	color: #669;  
- 	float: right;
+    font-size: xx-small;
+    margin-top: 5px;
+    color: #669;  
+    float: right;
  }
-
 </style>
     </head>
 <body>
-	<h1>Reporte de Usuarios Sysmed </h1>
-	<p>Para el <span>{{ $date }}</span></p>
+    <div style="margin-top: -20px">
+        @forelse($settings as $setting)
+        <img class="img-fluid" style="float:left; width: 90px; margin-left: -20px;"  src="{{ $setting->image == 'noimage.jpg' ? asset('/img/noimage.jpg'):  asset('storage/'.$setting->image) }}">
+        <h3>{{ $setting->name }}</h3>
+        @empty
+        @endforelse
+        <h4 style="margin-top: -12px;">Reporte de Usuarios</h4>
+        <p style="margin-top: -10px; font-size: 14px">Para el {{ $date }}</p>
+    </div>    
 <table class="table table-hover table-responsive-sm small">
                     <thead>
                         <tr>

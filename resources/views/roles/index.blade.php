@@ -32,7 +32,7 @@
                         
                     </div>
                 </div>
-                        <table class="table table-hover table-responsive-sm small">
+                        <table class="table table-hover table-responsive-lg small">
                             <thead>
                                 <tr>
                                     <th scope="col">Nombre</th>

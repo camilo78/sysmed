@@ -13,10 +13,6 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="{{ asset('js/sb-admin-2.min.js') }}" defer></script>
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -39,6 +35,9 @@
     <div class="footer text-center cr text-primary">
             <span>Copyright &copy; Emprende en la Web 2019</span>
         </div>
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/sb-admin-2.min.js') }}" defer></script>    
     @yield('js')
 
 </body>

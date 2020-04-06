@@ -29,14 +29,14 @@
                     <div class="col-md-4 space text-center">
                         <div class="btn-group" role="group" aria-label="Basic example">
                             <a href="{{ route('patients.index') }}"
-                                class="btn btn-outline-primary btn-sm">{{ 'Volver a Usuarios' }}</a>
+                                class="btn btn-outline-primary btn-sm">{{ 'Volver a Pacientes' }}</a>
                         </div>
                     </div>
                     <div class="col-md-4 space">
 
                     </div>
                 </div>
-                <table class="table table-hover table-responsive-sm small">
+                <table class="table table-hover table-responsive-lg small">
                     <thead>
                         <tr>
                             <th scope="col">Expediente</th>

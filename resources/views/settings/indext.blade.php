@@ -32,7 +32,7 @@
                         
                     </div>
                 </div>
-                    <table class="table table-hover table-responsive-sm small">
+                    <table class="table table-hover table-responsive-lg small">
                             <thead>
                                 <tr>
                                 	<th scope="col">Imagen</th>
@@ -46,7 +46,7 @@
                             <tbody>
                                 @forelse($settings as $setting)
                                 <tr>
-                                	<td class="show" data-id="{{ $setting->id }}"><img width="60" class="img-fluid" src="{{ $setting->image == 'noimage.jpg' ? asset('/img/noimage.jpg'):  asset('storage/'.$setting->image) }}">
+                                	<td class="show" data-id="{{ $setting->id }}"><img class="img-fluid" src="{{ $setting->image == 'noimage.jpg' ? asset('/img/noimage.jpg'):  asset('storage/'.$setting->image) }}">
                                     <td class="show" data-id="{{ $setting->id }}">{{ $setting->name }}</td>
                                     <td class="show" data-id="{{ $setting->id }}">{{ $setting->phone }}</td>
                                     <td class="show" data-id="{{ $setting->id }}">{{ $setting->web }}</td>

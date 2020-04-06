@@ -47,6 +47,7 @@
 	    <div class="col-sm-3 s_up">
 	        {{ form::label('kinship', 'Parentezco ') }}
 	        {!! Form::select('kinship',[
+	        	'Spouse'=>__('Spouse'),
 	        	'Mother'=>__('Mother'),
 	        	'Father' => __('Father'),
 	        	'Partner'=>__('Partner'),
