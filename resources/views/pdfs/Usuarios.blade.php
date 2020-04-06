@@ -54,9 +54,9 @@ td {
 </style>
     </head>
 <body>
-    <div style="margin-top: -20px">
+    <div style="margin-top: -20px; padding-bottom: 10px">
         @forelse($settings as $setting)
-        <img class="img-fluid" style="float:left; width: 90px; margin-left: -20px;"  src="{{ $setting->image == 'noimage.jpg' ? asset('/img/noimage.jpg'):  asset('storage/'.$setting->image) }}">
+        <img class="img-fluid" style="float:left; width: 90px; margin-right: 20px"  src="{{ $setting->image == 'noimage.jpg' ? asset('/img/noimage.jpg'):  asset('storage/'.$setting->image) }}">
         <h3>{{ $setting->name }}</h3>
         @empty
         @endforelse

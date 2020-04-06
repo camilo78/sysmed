@@ -126,7 +126,7 @@ class SettingController extends Controller
             $fileNameWithExt = $request->file('image')->getClientOriginalName();
 
             // get file name
-            $filename = $request->name;
+            $filename = str_replace(' ', '-', $request->name);
             // get extension
             $extension = $request->file('image')->getClientOriginalExtension();
 
