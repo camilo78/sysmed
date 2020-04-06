@@ -32,12 +32,12 @@ class PatientController extends Controller {
         $date = Date::parse($data)->format('l j F Y');
         $pdf = PDF::loadView('pdfs.Pacientes', compact('patients', 'date', 'settings'))->setPaper('a4', 'landscape');
 
-        return $pdf->download('Patient.pdf');
+        return $pdf->download('Pasiente.pdf');
     }
 
     public function exportxlsx()
     {
-        return Excel::download(new PatientsExport, 'Patient.xlsx');
+        return Excel::download(new PatientsExport, 'Pasiente.xlsx');
     }
 
 	public function trash(Request $request)
