@@ -76,7 +76,7 @@ td {
                             <th>Encargado</th>
                             <th>Teléfonos</th>
                             <th>Email</th>
-                            <th>Pais</th>
+                            <th>País</th>
                             <th>Ciudad</th>
                             <th>Dirección</th>
                         </tr>

@@ -17,7 +17,6 @@ class SettingController extends Controller
 
         $count = Setting::where('user_id',auth()->user()->id)->count();
 
-        //dd($count);
         if($count < 1){
             return view('settings.create');
         }elseif($count < 2){
@@ -59,7 +58,7 @@ class SettingController extends Controller
         if($request->hasFile('image')){
             $fileNameWithExt = $request->file('image')->getClientOriginalName();
             // get file name
-            $filename = $request->name;
+            $filename = str_replace(' ', '-', $request->name);
             // get extension
             $extension = $request->file('image')->getClientOriginalExtension();
             $fileNameToStore = $filename.'.'.$extension;
