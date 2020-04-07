@@ -32,7 +32,6 @@ class CreatePatientsTable extends Migration {
 			$table->string('phone2', 25)->nullable();
 			$table->string('email', 50)->nullable();
 			$table->text('address')->nullable();
-			$table->string('country')->nullable();
 			$table->string('city_town')->nullable();
 			$table->softDeletes(); //Columna para soft delete
 			$table->timestamps();

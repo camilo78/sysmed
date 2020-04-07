@@ -28,7 +28,6 @@ class PatientsExport implements FromCollection, WithHeadings, ShouldAutoSize
             'phone1',
             'phone2',
             'email',
-            'country',
             'city_town',
             'address'
         )->get();
@@ -49,7 +48,6 @@ class PatientsExport implements FromCollection, WithHeadings, ShouldAutoSize
                 'Teléfono 2',
                 'Email',
                 'País',
-                'Ciudad',
                 'Dirección'
             ];
         }

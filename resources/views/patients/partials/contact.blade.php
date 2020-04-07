@@ -21,13 +21,6 @@
 	        <small class="text-danger">{{ $errors->first('email') }}</small>
 	        @endif
 	    </div>
-	    <div class="col-sm-3 s_up">
-	        {{ form::label('country', 'País') }}
-	        {{ form::text('country', null, ['class' => 'form-control','id'=>'country', "readonly"]) }}
-	        @if ($errors->has('country'))
-	        <small class="text-danger">{{ $errors->first('country') }}</small>
-	        @endif
-	    </div>
 	    <div class="col-sm-6 s_up">
 	        {{ form::label('address', 'Dirección') }}
 	        {{ form::textarea('address', null, ['class' => 'form-control','id'=>'address','rows'=>'1']) }}

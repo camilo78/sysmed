@@ -91,7 +91,6 @@ class PatientController extends Controller {
 			'phone1'		=>	'max:25',
 			'phone2'		=>	'max:25',
 			'email' 		=>	'max:50',
-			'country'		=>	'max:255',
 			'city_town'		=>	'max:255',
 		]);
 
@@ -149,7 +148,6 @@ class PatientController extends Controller {
 			'phone1'		=>	'max:25',
 			'phone2'		=>	'max:25',
 			'email' 		=>	'max:50',
-			'country'		=>	'max:255',
 			'city_town'		=>	'max:255',	
 		]);
 

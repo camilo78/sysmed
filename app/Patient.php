@@ -32,7 +32,6 @@ class Patient extends Model {
 		'phone1',
 		'phone2',
 		'email',
-		'country',
 		'address',
 		'city_town',
 	];
@@ -55,7 +54,6 @@ class Patient extends Model {
 		'phone1',
 		'phone2',
 		'email',
-		'country',
 		'address',
 		'city_town',
 	];

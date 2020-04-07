@@ -76,7 +76,6 @@ td {
                             <th>Encargado</th>
                             <th>Teléfonos</th>
                             <th>Email</th>
-                            <th>País</th>
                             <th>Ciudad</th>
                             <th>Dirección</th>
                         </tr>
@@ -113,7 +112,6 @@ td {
                             </td>
                             <td class="show" >{{ $patient->phone1 .' '. $patient->phone2 }}</td> 
                             <td class="show" >{{ $patient->email }}</td>
-                            <td class="show" >{{ $patient->country }}</td>
                             <td class="show" >{{ $patient->city_town }}</td>
                             <td class="show" >{{ $patient->address }}</td>
                         </tr>
