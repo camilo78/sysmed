@@ -96,8 +96,8 @@ Route::middleware(['auth'])->group(function () {
 		->middleware('can:settings.destroy');
 
 	//Patient
-	Route::get('patients/export/', 'PatientController@exportXlsx');
-	Route::get('patients/pdf/', 'PatientController@exportPDF');
+	Route::get('patients/export/', 'PatientController@exportXlsx')->name('export');
+	Route::get('patients/pdf/', 'PatientController@exportPDF')->name('pdf');
 
 	Route::get('patients', 'PatientController@index')->name('patients.index')
 		->middleware('can:patients.index');

@@ -26,12 +26,10 @@
                         <h1 class="h3 mb-4 text-gray-800"><i class="fas fa-fw fa-users"></i> {{ 'Pacientes' }}</h1>
                     </div>
                     <div class="col-md-4 space text-center">
-                        <a href="{{ url('patients/pdf/') }}" class="btn btn-outline-danger btn-sm">PDF</a>
-                        <a href="{{ url('patients/export/') }}" class="btn btn-outline-success btn-sm">Excel</a>
-
-                        <a href="{{ route('patients.trash') }}"
-                            class="btn btn-outline-secondary btn-sm">{{ 'Papelera' }}</a>
-                        <a href="{{ route('patients.create') }}" class="btn btn-outline-info btn-sm">{{ __('New') }}</a>
+                        <a href="{{ route('export') }}" class="btn btn-outline-success btn-sm">Excel</a>
+                        <a href="{{ route('pdf') }}" class="btn btn-outline-danger btn-sm">PDF</a>
+                        <a href="{{ route('patients.trash') }}"class="btn btn-outline-secondary btn-sm">{{ 'Papelera' }}</a>
+                        <a href="{{ route('patients.create') }}" class="btn btn-outline-primary btn-sm">{{ __('New') }}</a>
                     </div>
                     <div class="col-md-4 space">
                         <form method="GET" action="{{ route('patients.index') }}">
@@ -148,6 +146,30 @@
     }
     .show:hover{
         color:red;
+    }
+    #abc.custom-file-label,
+    #abc.custom-file-label::after {
+      height: auto;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+    .btn-file {
+    position: relative;
+    overflow: hidden;
+    }
+    .btn-file input[type=file] {
+        position: absolute;
+        top: 0;
+        right: 0;
+        min-width: 100%;
+        min-height: 100%;
+        font-size: 100px;
+        text-align: right;
+        filter: alpha(opacity=0);
+        opacity: 0;
+        outline: none;   
+        cursor: inherit;
+        display: block;
     }
 </style>
 

@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Patient;
 use App\Setting;
-use App\Exports\PatientsExport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\PatientsExport;
+use App\Imports\PatientsImport;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Jenssegers\Date\Date; 
