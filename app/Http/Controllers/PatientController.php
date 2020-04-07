@@ -75,12 +75,24 @@ class PatientController extends Controller {
 	public function store(Request $request) {
 
 		$request->validate([
-			'name1' => 'required',
-			'surname1' => 'required',
-			'gender' => 'required',
-			'birth' => 'required|before_or_equal:now',
-		], [
-			'birth.before_or_equal' => 'La fecha de nacimiento debe ser anterior o igual a la fecha de hoy.',
+			'name1' 		=> 	'required|max:25',
+			'name2' 		=>  'max:25',
+			'surname1' 		=> 	'required|max:25',
+			'surname2' 		=> 	'max:25',
+			'married_name' 	=>	'max:25',
+			'gender' 		=> 	'required|in:M,F',
+			'birth' 		=> 	'required|before_or_equal:now',
+			'patient_code'	=>	'max:25',
+			'document_type'	=>	'max:25',
+			'document'		=>	'max:25',
+			'status'		=>	'in:active,disabled',
+			'name_relation'	=>	'max:50',
+			'kinship'		=>	'max:25',
+			'phone1'		=>	'max:25',
+			'phone2'		=>	'max:25',
+			'email' 		=>	'max:50',
+			'country'		=>	'max:255',
+			'city_town'		=>	'max:255',
 		]);
 
 		$patient = Patient::create($request->all());
@@ -121,12 +133,24 @@ class PatientController extends Controller {
 	 */
 	public function update(Request $request, Patient $patient) {
 		$request->validate([
-			'name1' => 'required',
-			'surname1' => 'required',
-			'gender' => 'required',
-			'birth' => 'required|before_or_equal:now',
-		], [
-			'birth.before_or_equal' => 'La fecha de nacimiento debe ser anterior o igual a la fecha de hoy.',
+			'name1' 		=> 	'required|max:25',
+			'name2' 		=>  'max:25',
+			'surname1' 		=> 	'required|max:25',
+			'surname2' 		=> 	'max:25',
+			'married_name' 	=>	'max:25',
+			'gender' 		=> 	'required|in:M,F',
+			'birth' 		=> 	'required|before_or_equal:now',
+			'patient_code'	=>	'max:25',
+			'document_type'	=>	'max:25',
+			'document'		=>	'max:25',
+			'status'		=>	'in:active,disabled',
+			'name_relation'	=>	'max:50',
+			'kinship'		=>	'max:25',
+			'phone1'		=>	'max:25',
+			'phone2'		=>	'max:25',
+			'email' 		=>	'max:50',
+			'country'		=>	'max:255',
+			'city_town'		=>	'max:255',	
 		]);
 
 		$patient->update($request->all());

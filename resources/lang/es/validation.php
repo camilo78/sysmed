@@ -145,6 +145,26 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+
+        'name1'         =>  'primer nombre',
+        'name2'         =>  'segundo nombre',
+        'surname1'      =>  'primer apellido',
+        'surname2'      =>  'segundo apellido',
+        'married_name'  =>  'apellido de casada',
+        'gender'        =>  'sexo',
+        'birth'         =>  'fecha de nacimiento',
+        'patient_code'  =>  'código de daciente',
+        'document_type' =>  'tipo de documento',
+        'document'      =>  'n°. de documento',
+        'status'        =>  'estado',
+        'name_relation' =>  'nombre del padre, madre, o encargado',
+        'kinship'       =>  'parentezco',
+        'phone1'        =>  'teléfono n°1',
+        'phone2'        =>  'teléfono n°2',
+        'email'         =>  'correo electrónico',
+        'country'       =>  'paíz',
+        'city_town'     =>  'ciudad o municipio',
+    ],
 
 ];
