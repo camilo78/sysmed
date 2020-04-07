@@ -21,18 +21,18 @@
 	        <small class="text-danger">{{ $errors->first('email') }}</small>
 	        @endif
 	    </div>
-	    <div class="col-sm-6 s_up">
-	        {{ form::label('address', 'Dirección') }}
-	        {{ form::textarea('address', null, ['class' => 'form-control','id'=>'address','rows'=>'1']) }}
-	        @if ($errors->has('address'))
-	        <small class="text-danger">{{ $errors->first('address') }}</small>
-	        @endif
-	    </div>
 	    <div class="col-sm-3 s_up">
 	        {{ form::label('city_town', 'Ciudad o Municipio') }}
 	        {{ form::text('city_town', null, ['class' => 'form-control','id'=>'city_town']) }}
 	        @if ($errors->has('city_town'))
 	        <small class="text-danger">{{ $errors->first('city_town') }}</small>
+	        @endif
+	    </div>
+	    <div class="col-sm-6 s_up">
+	        {{ form::label('address', 'Dirección') }}
+	        {{ form::textarea('address', null, ['class' => 'form-control','id'=>'address','rows'=>'1']) }}
+	        @if ($errors->has('address'))
+	        <small class="text-danger">{{ $errors->first('address') }}</small>
 	        @endif
 	    </div>
     	<div class="col-sm-12 s_up">
