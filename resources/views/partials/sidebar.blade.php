@@ -66,7 +66,7 @@
 
     <!-- Nav Item - Charts -->
     <li class="nav-item">
-        <a class="nav-link" href="charts.html">
+        <a class="nav-link" href="{{ route('events.index') }}">
             <i class="fas fa-fw fa-calendar-plus"></i>
             <span>{{ __('Medical Appointments') }}</span></a>
     </li>

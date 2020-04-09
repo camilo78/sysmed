@@ -124,6 +124,8 @@ Route::middleware(['auth'])->group(function () {
 		->middleware('can:patients.destroy');
 
 	Route::get('/patients/restore/{id}', 'PatientController@restore')->name('patients.restore')
-		->middleware('can:patients.restore');	
+		->middleware('can:patients.restore');
+
+	Route::get('events', 'EventController@index')->name('events.index');	
 
 });
