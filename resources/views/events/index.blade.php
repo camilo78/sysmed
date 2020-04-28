@@ -200,7 +200,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     })
                 },
                 contentLoaded: function(data, status, xhr){
-                    self.setContentAppend('<div>Content loaded!</div>');
                 },
                 onContentReady: function() {
                     $('#colorselector').colorselector();
