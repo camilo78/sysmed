@@ -191,16 +191,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 icon: 'fas fa-fw fa-calendar-alt',
                 backgroundDismiss: 'Cancelar',
                 escapeKey: 'Cancelar',
-                content: function(){
-                    var self = this;
-                    self.setContent('' @include('events.partials.form'));
-                    return $.ajax({
-                        dataType: 'json',
-                        method: 'post'
-                    })
-                },
-                contentLoaded: function(data, status, xhr){
-                },
                 onContentReady: function() {
                     $('#colorselector').colorselector();
                     change1 = 0;
