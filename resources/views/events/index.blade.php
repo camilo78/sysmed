@@ -195,7 +195,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     var self = this;
                     self.setContent('' @include('events.partials.form'));
                     return $.ajax({
-                        url: 'bower.json',
                         dataType: 'json',
                         method: 'get'
                     })
