@@ -17,62 +17,64 @@
             </button>
         </div>
         @endif
-        <div class="row">
-            <div class="col-md-4 space">
-                <h1 class="h3 mb-4 text-gray-800"><i class="fas fa-fw fa-user-tag"></i> {{ 'Roles' }}</h1>
-            </div>
-            <div class="col-md-4 space text-center">
-                <a href="{{ route('roles.create') }}" class="btn btn-outline-info btn-sm">{{ __('New') }}</a>
-            </div>
-            <div class="col-md-4 space">
-                
-            </div>
-        </div>
-        <table class="table table-hover table-responsive-lg small" id="table">
-            <thead>
-                <tr>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Descripción</th>
-                    <th scope="col" class="text-center">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse($role as $rol)
-                <tr>
-                    <td>{{ $rol->name }}</td>
-                    <td>{{ $rol->description }}</td>
-                    <td class="text-center">
-                        <form class="form-delete" id="{{ $rol->id }}"
-                            action="{{ route('roles.destroy', $rol->id) }}" method="POST">
-                            {{ csrf_field() }}
-                            {{ method_field('DELETE') }}
-                            @can('users.edit')
-                            <div class="btn-group" role="group" aria-label="Basic example">
-                                <button class="btn btn-outline-info btn-sm show" data-id="{{ $rol->id }}"><i class="far fa-eye"></i></button>
-                                <a href="{{ route('roles.edit', $rol->id) }}"
-                                class="btn btn-outline-primary btn-sm"><i class="fas fa-edit"></i></a>
-                                @endcan
-                                @can('roles.destroy')
-                                <button class="btn btn-outline-danger btn-sm submit" type="button"
-                                data-id="{{ $rol->id }}"
-                                data-msj="¿Realmente quiere eliminar el rol <b>{{ $rol->name }}</b>?"
-                                type="button"><i class="fas fa-trash-alt"></i>
-                                </button>
-                            </div>
-                            @endcan
-                        </form>
-                    </td>
-                </tr>
-                @empty
-                <div class="text-center text-danger">No hay coincidencias para esa busqueda</div>
-                @endforelse
-            </tbody>
-        </table>
-        
-        <div class="d-flex table-responsive-sm" style="margin-bottom:-25px">
-            <div class="ml-auto p-2 pagination-sm">{{ $role->links() }}</div>
-        </div>
     </div>
+</div>
+<div class="row">
+    <div class="col-md-4 mb-3">
+        <h1 class="h3 mb-4 text-gray-800"><i class="fas fa-fw fa-user-tag"></i> {{ 'Roles' }}</h1>
+    </div>
+    <div class="col-md-4 mb-3 text-center">
+        <a href="{{ route('roles.create') }}" class="btn btn-outline-info btn-sm">{{ __('New') }}</a>
+    </div>
+    <div class="col-md-4 mb-3">
+        
+    </div>
+</div>
+<table class="table table-hover table-responsive-lg small" id="table">
+    <thead>
+        <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Descripción</th>
+            <th scope="col" class="text-center">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @forelse($role as $rol)
+        <tr>
+            <td>{{ $rol->name }}</td>
+            <td>{{ $rol->description }}</td>
+            <td class="text-center">
+                <form class="form-delete" id="{{ $rol->id }}"
+                    action="{{ route('roles.destroy', $rol->id) }}" method="POST">
+                    {{ csrf_field() }}
+                    {{ method_field('DELETE') }}
+                    @can('users.edit')
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button class="btn btn-outline-info btn-sm show" data-id="{{ $rol->id }}"><i class="far fa-eye"></i></button>
+                        <a href="{{ route('roles.edit', $rol->id) }}"
+                        class="btn btn-outline-primary btn-sm"><i class="fas fa-edit"></i></a>
+                        @endcan
+                        @can('roles.destroy')
+                        <button class="btn btn-outline-danger btn-sm submit" type="button"
+                        data-id="{{ $rol->id }}"
+                        data-msj="¿Realmente quiere eliminar el rol <b>{{ $rol->name }}</b>?"
+                        type="button"><i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
+                    @endcan
+                </form>
+            </td>
+        </tr>
+        @empty
+        <div class="text-center text-danger">No hay coincidencias para esa busqueda</div>
+        @endforelse
+    </tbody>
+</table>
+
+<div class="d-flex table-responsive-sm" style="margin-bottom:-25px">
+    <div class="ml-auto p-2 pagination-sm">{{ $role->links() }}</div>
+</div>
+</div>
 </div>
 @endsection
 @section('css')
