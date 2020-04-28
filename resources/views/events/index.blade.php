@@ -183,7 +183,6 @@ document.addEventListener('DOMContentLoaded', function() {
         select(info) {
             $.confirm({
                 title: 'Nueva Cita Médica',
-                content: ''@include('events.partials.form'),
                 type: 'blue',
                 theme: 'bootstrap',
                 columnClass: 'large',
@@ -191,6 +190,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 icon: 'fas fa-fw fa-calendar-alt',
                 backgroundDismiss: 'Cancelar',
                 escapeKey: 'Cancelar',
+                content: function(){
+                    var self = this;
+                    self.setContent('' @include('events.partials.form'));
+                    return $.ajax({
+                        dataType: 'json',
+                        method: 'get'
+                    })
+                },
                 onContentReady: function() {
                     $('#colorselector').colorselector();
                     change1 = 0;
@@ -234,9 +241,9 @@ document.addEventListener('DOMContentLoaded', function() {
                                 var start = moment(info.startStr).format("Y-MM-DD HH:mm:ss");
                                 var end = moment(info.endStr).format("Y-MM-DD HH:mm:ss");
                                 $.ajax({
-                                    type: "POST",
                                     url: SITEURL + "/events/create",
                                     data: 'title=' + title + '&start=' + start + '&end=' + end + '&description=' + description + '&patient_id=' + patient_id + '&color=' + color,
+                                    type: "POST",
                                     success: function(dato) {
                                         Toast.fire({
                                             icon: 'success',
