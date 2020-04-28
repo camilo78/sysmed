@@ -244,9 +244,9 @@ document.addEventListener('DOMContentLoaded', function() {
                                 var start = moment(info.startStr).format("Y-MM-DD HH:mm:ss");
                                 var end = moment(info.endStr).format("Y-MM-DD HH:mm:ss");
                                 $.ajax({
+                                    type: "POST",
                                     url: SITEURL + "/events/create",
                                     data: 'title=' + title + '&start=' + start + '&end=' + end + '&description=' + description + '&patient_id=' + patient_id + '&color=' + color,
-                                    type: "POST",
                                     success: function(dato) {
                                         Toast.fire({
                                             icon: 'success',
