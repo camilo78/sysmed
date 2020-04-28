@@ -102,6 +102,7 @@ Route::middleware(['auth'])->group(function () {
 	Route::get('patients', 'PatientController@index')->name('patients.index')
 		->middleware('can:patients.index');
 
+
 	Route::get('patients/create', 'PatientController@create')->name('patients.create')
 		->middleware('can:patients.create');
 
@@ -126,6 +127,12 @@ Route::middleware(['auth'])->group(function () {
 	Route::get('/patients/restore/{id}', 'PatientController@restore')->name('patients.restore')
 		->middleware('can:patients.restore');
 
-	Route::get('events', 'EventController@index')->name('events.index');	
+	
 
+	// Events
+    //fullcalender
+	Route::get('/events','EventController@index')->name('events.index');
+	Route::post('/events/create','EventController@create');
+	Route::post('/events/update','EventController@update');
+	Route::post('/events/delete','EventController@destroy');
 });

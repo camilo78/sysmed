@@ -61,5 +61,8 @@
     "active":"activo",
     "disabled":"inactivo",
     "Spouse":"Cónyugue",
-    "Other":"Otro"
+    "Other":"Otro",
+    "Updated Successfully":"Actualizado Correctamente",
+    "Deleted Successfully":"Elininado Correctamente",
+    "Do you really want to delete?":"¿Realmente quieres elininarlo?" 
 }

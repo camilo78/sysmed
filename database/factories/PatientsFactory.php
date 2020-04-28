@@ -23,7 +23,6 @@ $factory->define(Patient::class, function (Faker $faker) {
 		'kinship' => 'name',
 		'phone1' => rand(11111111, 99999999),
 		'phone2' => rand(11111111, 99999999),
-		'country' => 'Honduras',
 		'email' => $faker->unique()->safeEmail,
 		'address' => $faker->address,
 		'city_town' => 'La Ceiba',

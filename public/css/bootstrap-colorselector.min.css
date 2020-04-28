@@ -1,0 +1,9 @@
+/*
+ * A colorselector for Twitter Bootstrap which lets you select a color from a predefined set of colors only.
+ * https://github.com/flaute/bootstrap-colorselector
+ *
+ * Copyright (C) 2014 Flaute
+ *
+ * Licensed under the MIT license
+ */
+.dropdown-colorselector>.dropdown-menu{top:80%;left:-7px;padding:4px;min-width:130px;max-width:95%}.dropdown-colorselector>.dropdown-menu>li{display:block;float:left;width:20px;height:20px;margin:2px}.dropdown-colorselector>.dropdown-menu>li>.color-btn{display:block;width:20px;height:20px;margin:0;padding:0;border-radius:0;position:relative;-webkit-transition:all ease .1s;transition:all ease .1s}.dropdown-colorselector>.dropdown-menu>li>.color-btn:hover{text-decoration:none;opacity:.8;filter:alpha(opacity=80);-webkit-transform:scale(1.08);-ms-transform:scale(1.08);transform:scale(1.08)}.dropdown-colorselector>.dropdown-menu>li>.color-btn.selected:after{content:"\f111";font-family:'Font Awesome 5 Free';display:inline-block;font-size:11px;color:#FFF;position:absolute;left:0;right:0;text-align:center;line-height:20px}.btn-colorselector{display:inline-block;width:95%;height:35px;background-color:#DDD;vertical-align:middle;border-radius:5px}

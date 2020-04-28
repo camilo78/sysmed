@@ -17,7 +17,10 @@ use App\Setting;
 
 class UserController extends Controller
 {   
-
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -93,7 +96,16 @@ class UserController extends Controller
             'phone.required' => 'El campo teléfono es obligatorio',
         ]);
 
-        $user = User::create($request->all());
+        //$user = User::create($request->all());
+
+        $user = User::create([
+            'name' => ucwords($request['name']),
+            'address' => $request['address'],
+            'phone'=> $request['phone'],
+            'email'=> $request['email'],
+            'date'=> $request['date'],
+            'password'=> bcrypt($request['password']),
+        ]);
 
         $user->roles()->sync($request->get('roles'));
 

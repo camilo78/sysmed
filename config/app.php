@@ -166,7 +166,7 @@ return [
          * Package Service Providers...
          */
         //Laracasts\Flash\FlashServiceProvider::class,
-
+        Yajra\DataTables\DataTablesServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -226,7 +226,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-       // 'Flash' => Laracasts\Flash\Flash::class,
+        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
+
     ],
 
 ];

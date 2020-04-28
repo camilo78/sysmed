@@ -13,13 +13,18 @@ use Jenssegers\Date\Date;
 use PDF;
 
 class PatientController extends Controller {
+
+	public function __construct()
+    {
+        $this->middleware('auth');
+    }
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index(Request $request) {
-		$patients = Patient::search($request->name)->where('user_id', auth()->user()->id)->orderBy('id', 'DESC')->paginate(5);
+		$patients = Patient::search($request->name)->where('user_id', auth()->user()->id)->orderBy('id', 'DESC')->paginate(10);
 
 		return view('patients.index', compact('patients'));
 	}

@@ -1,9 +1,7 @@
 <?php
-
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-
 class CreateEventsTable extends Migration
 {
     /**
@@ -13,17 +11,21 @@ class CreateEventsTable extends Migration
      */
     public function up()
     {
-        Schema::create('events', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        Schema::create('events', function (Blueprint $table)
+        {
+            $table->increments('id');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedBigInteger('patient_id')->nullable();
+            $table->foreign('patient_id')->references('id')->on('patients');
+            $table->string('description');
             $table->string('title');
+            $table->string('color');
             $table->dateTime('start');
             $table->dateTime('end');
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      *
@@ -34,3 +36,4 @@ class CreateEventsTable extends Migration
         Schema::dropIfExists('events');
     }
 }
+
