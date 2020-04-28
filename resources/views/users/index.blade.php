@@ -46,7 +46,7 @@
         </form>
     </div>
 </div>
-<table class="table table-hover small" id="table">
+<table class="table table-hover small" id="table" style="width:100%">
     <thead>
         <tr>
             <th scope="col">Nombre</th>
