@@ -196,7 +196,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     self.setContent('' @include('events.partials.form'));
                     return $.ajax({
                         dataType: 'json',
-                        method: 'get'
+                        method: 'post'
                     })
                 },
                 contentLoaded: function(data, status, xhr){
