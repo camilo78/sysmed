@@ -41,7 +41,7 @@
         </form>
     </div>
 </div>
-<table class="table table-hover table-responsive-lg small" id="table" style="width:100%">
+<table class="table table-hover small" id="table" style="width:100%">
     <thead>
         <tr>
             <th scope="col">Expediente</th>
