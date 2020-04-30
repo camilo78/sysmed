@@ -6,42 +6,7 @@
     {{ session('status') }}
 </div>
 @endif
-@if ($message = Session::get('info'))
-<div class="alert alerta alert-info alert-dismissible d-flex flex-ro">
-    <i class="fas fa-fw fa-info-circle mr-3 mt-1"></i>
-    <p>{{ $message }}</p>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-    </button>
-</div>
-@endif
-<div class="row">
-    <div class="col-md-4">
-        <h1 class="h3 mb-3 text-gray-800"><i class="fas fa-fw fa-users"></i> {{ 'Pacientes' }}</h1>
-    </div>
-    <div class="col-md-4 text-center">
-        <div class="btn-group mb-3 btn-group">
-            <a href="{{ route('export') }}" class="btn btn-outline-success btn-sm">Excel</a>
-            <a href="{{ route('pdf') }}" class="btn btn-outline-danger btn-sm">PDF</a>
-            <a href="{{ route('patients.trash') }}"class="btn btn-outline-secondary btn-sm">{{ 'Papelera' }}</a>
-            <a href="{{ route('patients.create') }}" class="btn btn-outline-primary btn-sm">{{ __('New') }}</a>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <form method="GET" action="{{ route('patients.index') }}">
-            <div class="input-group mb-3 input-group-sm">
-                <input type="text" class="form-control" name="name" placeholder="{{ __('Search') }}"
-                aria-label="Recipient's username" aria-describedby="button-addon2">
-                <div class="input-group-append">
-                    <button class="btn btn-primary btn-sm" type="submit" id="button-addon2"><i
-                    class="fas fa-search" aria-hidden="true"></i>
-                    </button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-<table class="table table-hover small" id="table" style="width:100%">
+<table class="table table-hover small" id="dtPluginExample" style="width:100%">
     <thead>
         <tr>
             <th scope="col">Expediente</th>
@@ -77,7 +42,7 @@
                 @else
                 <span class="font-weight-bold">Sin Telefonos</span>
                 @endif
-                
+
             </td>
             <td style="vertical-align:middle;">
                 @if(!empty($patient->document_type))
@@ -107,7 +72,7 @@
                         class="btn btn-outline-primary btn-sm"><i class="fas fa-edit"></i></a>
                         @endcan
                         @can('patients.destroy')
-                        <button class="btn btn-outline-danger btn-sm submit" type="button"
+                        <button class="btn btn-outline-danger btn-sm submit"
                         data-id="{{ $patient->id }}"
                         data-msj="¿Realmente quiere eliminar los datos de <b>{{ $patient->name1 .' '. $patient->surname1 }}</b>?"
                         type="button"><i class="fas fa-trash-alt"></i>
@@ -122,18 +87,12 @@
         @endforelse
     </tbody>
 </table>
-<div class="d-flex table-responsive-sm" style="margin-bottom:-25px">
-                    <div class="ml-auto p-2 pagination-sm">{{ $patients->links() }}</div>
-                </div>
-
 @endsection
 @section('css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/b-1.6.1/r-2.2.3/datatables.min.css"/>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.20/af-2.3.4/b-1.6.1/b-flash-1.6.1/b-html5-1.6.1/b-print-1.6.1/r-2.2.3/datatables.min.css"/>
 <style>
-    #table{
-        background-color: #FFFFFF;
-    }
+
 .show{
 color:orange;
 }
@@ -168,16 +127,123 @@ display: block;
 @endsection
 @section('js')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/b-1.6.1/r-2.2.3/datatables.min.js"></script>
-<script type="text/javascript">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.20/af-2.3.4/b-1.6.1/b-flash-1.6.1/b-html5-1.6.1/b-print-1.6.1/r-2.2.3/datatables.min.js">
+
+</script><script type="text/javascript">
 var URLSHOW = '{{URL::to('patients ')}}/';
 $(document).ready(function() {
-    $('#table').DataTable({
+    var strIconSearch = '<i class="fas fa-search"></i>';
+    var tableTitle = 'Pacientes';
+    var meses = new Array ("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+    var diasSemana = new Array("Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado");
+    var f=new Date();
+    var fecha = diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.getMonth()] + " de " + f.getFullYear();
+
+    var tableSubTitle = 'Total de pacientes al' +
+        '' +
+        '] '+ fecha;
+    var tableBS4 = $('#dtPluginExample').DataTable({
+        drawCallback: function () {
+            $('#dtPluginExample_paginate ul.pagination').addClass("pagination-sm");
+            $('button.btn').removeClass("btn-secondary");
+
+        },
+        language: {
+            "sProcessing":     "Procesando...",
+            "sLengthMenu":     "Mostrar _MENU_ registros",
+            "sZeroRecords":    "No se encontraron resultados",
+            "sEmptyTable":     "Ningún dato disponible en esta tabla =(",
+            "sInfo":           "Mostrando del _START_ al _END_ de un total de _TOTAL_ registros",
+            "sInfoEmpty":      "Mostrando del 0 al 0 de un total de 0 registros",
+            "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+            "sInfoPostFix":    "",
+            "sSearch":         "Buscar:",
+            "sUrl":            "",
+            "sInfoThousands":  ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst":    "Primero",
+                "sLast":     "Último",
+                "sNext":     "Siguiente",
+                "sPrevious": "Anterior"
+            },
+            "oAria": {
+                "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            },
+            "buttons": {
+                "copy": "Copiar",
+                "colvis": "Visibilidad"
+            }
+        },
         responsive: true,
-        "paging": false,
-        "info": false,
-        "searching": false
+        dom:"<'row rio'<'col-sm-12 text-center col-md-4'B><'col-sm-12 col-md-4'f>>" +
+            "<'row'<'col-sm-12'tr>>" +
+            "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+
+        buttons: {
+            buttons: [
+                {
+                    extend: 'csvHtml5',
+                    text: '<i class="fas fa-file-csv"></i>',
+                    className: 'btn-primary',
+                    exportOptions: {
+                        columns: [ 0, 1, 2, 5, 6, 7, 8 ]
+                    },
+                    titleAttr: 'Exportar CSV'
+                },
+                {
+                    extend: 'excelHtml5',
+                    text: '<i class="fas fa-file-excel"></i>',
+                    className: 'btn-primary',
+                    exportOptions: {
+                        columns: [ 0, 1, 2, 5, 6, 7, 8 ]
+                    },
+                    title: tableTitle,
+                    messageTop: tableSubTitle,
+                    titleAttr: 'Exportar Excel'
+                },
+                {
+                    extend: 'pdfHtml5',
+                    text: '<i class="fas fa-file-pdf"></i>',
+                    className: 'btn-primary',
+                    exportOptions: {
+                        columns: [ 0, 1, 2, 5, 6, 7, 8 ]
+                    },
+                    title: tableTitle,
+                    exportOptions: {
+                        columns: [ 0, 1, 2, 5, 6, 7, 8 ]
+                    },
+                    messageTop: tableSubTitle,
+                    titleAttr: 'Exportar PDF'
+                },
+                {
+                    extend: 'print',
+                    text: '<i class="fas fa-print"></i>',
+                    className: 'btn-primary',
+                    exportOptions: {
+                        columns: [ 0, 1, 2, 5, 6, 7, 8 ]
+                    },
+                    title: tableTitle,
+                    messageTop: tableSubTitle,
+                    titleAttr: 'Imprimir Tabla'
+                }
+            ],
+        }
     });
+// Add a row for the Title & Subtitle in front of the first row of the wrapper
+    var divTitle = ''
+        + '<div class="col-sm-12 col-md-4">'
+        + '<h3> <i class="fas fa-users"></i>  ' + tableTitle + '</h3>'
+        + '</div>';
+    $( divTitle ).prependTo( '.rio' );
+
+    $('tfoot tr th').removeClass("bg-warning bg-light bg-success text-left text-center text-right").addClass("bg-dark text-white").css("font-size", "0.85rem");
+    $('tfoot tr th:eq(1)').addClass("text-left");
+    $('tfoot tr th:eq(6)').addClass("text-right");
+
     $('.show').click(function() {
         var id = $(this).attr('data-id')
         window.location.href = URLSHOW + id;

@@ -9,7 +9,7 @@ use App\Exports\PatientsExport;
 use App\Imports\PatientsImport;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-use Jenssegers\Date\Date; 
+use Jenssegers\Date\Date;
 use PDF;
 
 class PatientController extends Controller {
@@ -24,7 +24,7 @@ class PatientController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index(Request $request) {
-		$patients = Patient::search($request->name)->where('user_id', auth()->user()->id)->orderBy('id', 'DESC')->paginate(10);
+		$patients = Patient::where('user_id', auth()->user()->id)->orderBy('id', 'DESC')->get();
 
 		return view('patients.index', compact('patients'));
 	}
@@ -125,7 +125,7 @@ class PatientController extends Controller {
 		$now = new \DateTime();
 		$id = $patient->id;
 		//dd($patient);
-		return view('patients.edit', compact('patient', 'now', 'id')); 
+		return view('patients.edit', compact('patient', 'now', 'id'));
 
 	}
 
@@ -154,7 +154,7 @@ class PatientController extends Controller {
 			'phone1'		=>	'max:25',
 			'phone2'		=>	'max:25',
 			'email' 		=>	'max:50',
-			'city_town'		=>	'max:255',	
+			'city_town'		=>	'max:255',
 		]);
 
 		$patient->update($request->all());
