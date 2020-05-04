@@ -28,7 +28,7 @@
         @endif
     </div>
 
-@if (Route::currentRouteName() == 'users.create')
+@if (Route::currentRouteName() == 'assistants.create')
 
     <div class="col-sm-3 s_up">
         {{ form::label('password', 'Contraseña') }}
@@ -53,23 +53,6 @@
         @if ($errors->has('phone'))
         <small class="text-danger">{{ $errors->first('phone') }}</small>
         @endif
-    </div>
-</div>
-<hr>
-<h2 class="h4 mb-4 text-gray-800"><i class="fas fa-fw fa-user-tag"></i> {{ 'Lista de Roles' }}</h2>
-<div class="form-group row">
-    <div class="col-sm-12 s_up">
-        <ul class="list-unstyled">
-            @foreach($roles as $role)
-            <li>
-                <label>
-                    {{ form::checkbox('roles[]', $role->id, null) }}
-                    {{ $role->name }}
-                    <em>({{ $role->description ?: 'N/A' }})</em>
-                </label>
-            </li>
-            @endforeach
-        </ul>
     </div>
 </div>
 <div class="form-group row">

@@ -12,6 +12,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
+    <!-- Scripts -->
+    <script src="{{ asset('js/custom.js') }}" ></script>
+
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -37,7 +40,7 @@
         </div>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="{{ asset('js/sb-admin-2.min.js') }}" defer></script>    
+    <script src="{{ asset('js/sb-admin-2.min.js') }}" defer></script>
     @yield('js')
 
 </body>

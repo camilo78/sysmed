@@ -1,5 +1,11 @@
 @extends('layouts.app')
 @section('content')
+    @if (session('status'))
+        <div class="alert alert-success alerta" role="alert">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ session('status') }}
+        </div>
+    @endif
     <div class="row">
         <div class="col-xl-12">
             @if ($message = Session::get('info'))
@@ -16,126 +22,67 @@
     <table class="table table-hover small" id="dtPluginExample" style="width:100%">
         <thead>
         <tr>
-            <th scope="col">Expediente</th>
-            <th scope="col">Nombres</th>
-            <th scope="col">Apellidos</th>
+            <th scope="col">Nombre</th>
             <th scope="col">Correo</th>
             <th scope="col">Teléfono</th>
-            <th scope="col">Documento</th>
             <th scope="col">Edad</th>
-            <th scope="col">Sx</th>
-            <th scope="col">Estado</th>
+            <th scope="col">Rol</th>
             <th scope="col" class="text-center">Acciones</th>
         </tr>
         </thead>
         <tbody>
-        @forelse($patients as $patient)
+        @forelse($users as $user)
             <tr>
-                <td style="vertical-align:middle;"><a href="#" class="show text-decoration-none"
-                                                      data-id="{{ $patient->id }}"><i
-                            class="fas fa-folder-open"></i> {{ $patient->patient_code }}</a></td>
-                <td style="vertical-align:middle;">{{ ucwords($patient->name1 .' '. $patient->name2) }}</td>
-                <td style="vertical-align:middle;">{{ ucwords($patient->surname1. ' ' .$patient->surname2) }}</td>
-                <td style="vertical-align:middle;">
-                    @if(!empty($patient->email))
-                        <a class="text-decoration-none" href="mailto:{{ $patient->email }}">{{ $patient->email }}
-                        </a>
+                <td>{{ $user->name }}</td>
+                <td>{{ $user->email }}</td>
+                <td>{{ $user->phone }}</td>
+                <td>
+                    @if(\Carbon\Carbon::parse($user->date)->age === 0){{ \Carbon\Carbon::parse($user->date)->diff(\Carbon\Carbon::now())->format(' %m meses %d días') }}
+                    @elseif(\Carbon\Carbon::parse($user->date)->age < 3){{ \Carbon\Carbon::parse($user->date)->age }} año{{ \Carbon\Carbon::parse($user->date)->diff(\Carbon\Carbon::now())->format(' %m meses') }}
+                    @elseif(\Carbon\Carbon::parse($user->date)->age === 1){{ \Carbon\Carbon::parse($user->date)->age }} año
                     @else
-                        <span class="font-weight-bold">Sin email</span>
+                        {{ \Carbon\Carbon::parse($user->date)->age }} años
                     @endif
                 </td>
-                <td style="vertical-align:middle;">
-                    @if(!empty($patient->phone1 or $patient->phone2))
-                        <a class="text-decoration-none" href="tel:{{ $patient->phone1 }}">{{ $patient->phone1 }}</a>
-                        <a class="text-decoration-none" href="tel:{{ $patient->phone2 }}">{{ $patient->phone2 }}</a>
-                    @else
-                        <span class="font-weight-bold">Sin Telefonos</span>
-                    @endif
+                <td data-id="{{ $user->id }}">
+                    {{ !empty($user->roles()->first()->name) ? $user->roles()->first()->name: 'S/R' }}</td>
+                <td class="text-center">
 
-                </td>
-                <td style="vertical-align:middle;">
-                    @if(!empty($patient->document_type))
-                        {{ __("$patient->document_type")}}<br>{{$patient->document}}
-                    @else
-                        <span class="font-weight-bold">Sin Documento</span>
-                    @endif
-                </td>
-                <td style="vertical-align:middle;">
-                    @if(\Carbon\Carbon::parse($patient->birth)->age === 0){{ \Carbon\Carbon::parse($patient->birth)->diff(\Carbon\Carbon::now())->format('%m m + %d d') }}
-                    @else(\Carbon\Carbon::parse($patient->date)->age < 3){{ \Carbon\Carbon::parse($patient->birth)->age }}A + {{ \Carbon\Carbon::parse($patient->birth)->diff(\Carbon\Carbon::now())->format('%m m') }}
-                    @endif
-                </td>
-                <td style="vertical-align:middle;">{{ __($patient->gender) }}</td>
-                <td class="font-weight-bold"
-                    style="vertical-align:middle; color: {{ $patient->status === "active" ? "#1cc88a" : "grey" }}"
-                    data-id="{{ $patient->id }}">{{ ucwords(__($patient->status))}}</td>
-                <td class="text-center" style="vertical-align:middle;">
-                    <form class="form-delete" id="{{ $patient->id }}"
-                          action="{{ route('patients.destroy', $patient->id) }}" method="POST">
+                    <form class="form-delete" id="{{ $user->id }}"
+                          action="{{ route('assistants.destroy', $user->id) }}" method="POST">
                         {{ csrf_field() }}
                         {{ method_field('DELETE') }}
                         <div class="btn-group" role="group" aria-label="Basic example">
-                            @can('patients.edit')
-                                <a href="{{ route('patients.edit', $patient->id) }}"
+                            @can('assistants.edit')
+                                <button class="btn btn-outline-info btn-sm show" data-id="{{ $user->id }}"><i
+                                        class="far fa-eye"></i></button>
+                                <a href="{{ route('assistants.edit', $user->id) }}"
                                    class="btn btn-outline-primary btn-sm"><i class="fas fa-edit"></i></a>
                             @endcan
-                            @can('patients.destroy')
-                                <button class="btn btn-outline-danger btn-sm submit"
-                                        data-id="{{ $patient->id }}"
-                                        data-msj="¿Realmente quiere eliminar los datos de <b>{{ $patient->name1 .' '. $patient->surname1 }}</b>?"
-                                        type="button"><i class="fas fa-trash-alt"></i>
-                                </button>
+                            @can('assistants.destroy')
+                                @if (auth()->id() != $user->id)
+                                    <button class="btn btn-outline-danger btn-sm submit" type="button"
+                                            data-id="{{ $user->id }}"
+                                            data-msj="¿Realmente quiere eliminar los datos de <b>{{ $user->name }}</b>?"
+                                            type="button"><i class="fas fa-trash-alt"></i>
+                                    </button>
+                                @endif
                             @endcan
                         </div>
                     </form>
                 </td>
             </tr>
         @empty
-            <div class="text-center text-danger">No hay pacientes registrados</div>
-        @endforelse
+      @endforelse
         </tbody>
     </table>
 @endsection
 @section('css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
     <link rel="stylesheet" type="text/css"
+          href="https://cdn.datatables.net/v/bs4/dt-1.10.20/b-1.6.1/r-2.2.3/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css"
           href="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.20/af-2.3.4/b-1.6.1/b-flash-1.6.1/b-html5-1.6.1/b-print-1.6.1/r-2.2.3/datatables.min.css"/>
-    <style>
-        .show {
-            color: orange;
-        }
-
-        .show:hover {
-            color: red;
-        }
-
-        #abc.custom-file-label,
-        #abc.custom-file-label::after {
-            height: auto;
-            padding-top: 0;
-            padding-bottom: 0;
-        }
-
-        .btn-file {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-file input[type=file] {
-            position: absolute;
-            top: 0;
-            right: 0;
-            min-width: 100%;
-            min-height: 100%;
-            font-size: 100px;
-            text-align: right;
-            filter: alpha(opacity=0);
-            opacity: 0;
-            outline: none;
-            cursor: inherit;
-            display: block;
-        }
-    </style>
 @endsection
 @section('js')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
@@ -144,14 +91,14 @@
     <script type="text/javascript"
             src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.20/af-2.3.4/b-1.6.1/b-flash-1.6.1/b-html5-1.6.1/b-print-1.6.1/r-2.2.3/datatables.min.js"></script>
     <script type="text/javascript">
-        var URLSHOW = '{{URL::to('patients')}}/';
+        var URLSHOW = '{{URL::to('assistants')}}/';
         $(document).ready(function () {
             var meses = new Array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
             var diasSemana = new Array("Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado");
             var f = new Date();
             var fecha = diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.getMonth()] + " de " + f.getFullYear();
-            var tableTitle = 'Pacientes';
-            var tableSubTitle = 'Total de pacientes al ' + fecha;
+            var tableTitle = 'Asistentes';
+            var tableSubTitle = 'Total de asistentes al ' + fecha;
             var tableBS4 = $('#dtPluginExample').DataTable({
                 drawCallback: function () {
                     $('#dtPluginExample_paginate ul.pagination').addClass("pagination-sm");
@@ -159,7 +106,6 @@
 
                 },
                 language: {
-                    search: '',
                     "sProcessing": "Procesando...",
                     "sLengthMenu": "Mostrar _MENU_ registros",
                     "sZeroRecords": "No se encontraron resultados",
@@ -199,20 +145,19 @@
                             text: '<i class="fas fa-file-excel"></i>',
                             className: 'btn-primary btn-sm',
                             exportOptions: {
-                                columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
+                                columns: [0, 1, 2, 3]
                             },
                             title: tableTitle,
                             messageTop: tableSubTitle,
-                            titleAttr: 'Exportar Excel btn-sm'
+                            titleAttr: 'Exportar Excel'
                         },
                         {
                             extend: 'pdfHtml5',
                             text: '<i class="fas fa-file-pdf"></i>',
                             className: 'btn-primary btn-sm',
-                            orientation: 'landscape',
 
                             exportOptions: {
-                                columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
+                                columns: [0, 1, 2, 3]
                             },
                             title: tableTitle,
                             messageTop: tableSubTitle,
@@ -223,7 +168,7 @@
                             text: '<i class="fas fa-print"></i>',
                             className: 'btn-primary btn-sm',
                             exportOptions: {
-                                columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
+                                columns: [0, 1, 2, 3]
                             },
                             title: tableTitle,
                             messageTop: tableSubTitle,
@@ -234,7 +179,7 @@
                             className: 'btn-primary btn-sm',
                             init: (api, node, config) => $(node).removeClass('btn-secondary'),
                             action: function (e, dt, node, config) {
-                                window.location.href = '{{ route('patients.create') }}';
+                                window.location.href = '{{ route('assistants.create') }}';
                                 return false;
                             }
                         },
@@ -243,7 +188,7 @@
                             className: 'btn-info btn-sm',
                             init: (api, node, config) => $(node).removeClass('btn-secondary'),
                             action: function (e, dt, node, config) {
-                                window.location.href = '{{ route('patients.trash') }}';
+                                window.location.href = '{{ route('assistants.trash') }}';
                                 return false;
                             }
                         }
@@ -253,10 +198,9 @@
 // Add a row for the Title & Subtitle in front of the first row of the wrapper
             var divTitle = ''
                 + '<div class="col-sm-12 col-md-4">'
-                + '<h3> <i class="fas fa-users"></i>  ' + tableTitle + '</h3>'
+                + '<h3> <i class="fas fa-user-nurse"></i>  ' + tableTitle + '</h3>'
                 + '</div>';
             $(divTitle).prependTo('.rio');
-            $("input.form-control.form-control-sm").attr('placeholder', 'Buscar...');
 
             $('tfoot tr th').removeClass("bg-warning bg-light bg-success text-left text-center text-right").addClass("bg-dark text-white").css("font-size", "0.85rem");
             $('tfoot tr th:eq(1)').addClass("text-left");
@@ -277,8 +221,6 @@
                     type: 'red',
                     icon: 'fas fa-fw fa-exclamation-circle',
                     theme: 'modern',
-                    backgroundDismiss: 'no',
-                    escapeKey: 'no',
                     buttons: {
                         si: {
                             btnClass: 'btn-red',

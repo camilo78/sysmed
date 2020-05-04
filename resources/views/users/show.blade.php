@@ -12,7 +12,7 @@
     </div>
     <div class="col-md-4 mb-3 text-center">
         <a href="{{ route('users.edit', $user->id) }}"
-        class="btn btn-outline-info btn-sm">{{ 'Editar Información' }}</a>
+        class="btn btn-primary btn-sm">{{ 'Editar Información' }}</a>
     </div>
     <div class="col-md-4 mb-3">
     </div>

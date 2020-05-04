@@ -1,24 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    @if (session('status'))
-        <div class="alert alert-success alerta" role="alert">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            {{ session('status') }}
-        </div>
-    @endif
-    @if ($message = Session::get('info'))
-        <div class="alert alerta alert-info alert-dismissible d-flex flex-row">
-            <i class="fas fa-fw fa-info-circle mr-3 mt-1"></i>
-            <p>{{ $message }}</p>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    @endif
-
     <div id='calendar'></div>
-
-
 @endsection
 
 @section('css')
@@ -32,6 +14,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.14/css/bootstrap-select.min.css" />
     <link rel="stylesheet" href="{{ asset('/css/bootstrap-colorselector.min.css') }}">
     <style>
+        .fc-view-container{
+            margin-top: -15px;
+        }
         #content{
             background-color: #FFFFFF;
         }
@@ -77,21 +62,16 @@
             }
         })
         $(document).ready(function() {
-            $(".fc-toolbar .btn").removeClass("btn-primary");
-            $(".fc-toolbar .btn").addClass("btn-outline-primary");
-            $(".fc-toolbar .btn").addClass("btn-sm");
+            $('div .fc-header-toolbar').addClass('.row');
             if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
                 $(".fc table ").css("font-size", "0.85em");
                 $('.fc-event').css('font-size', '0.85em');
                 $('.fc-left').css('font-size', '0.75em');
-                $(' div .fc-toolbar').addClass("row");
-                $(' div .fc-toolbar').addClass("text-center");
-                $(' div .fc-left').addClass("font-weight-bold");
-                $(' div .fc-left').addClass("col-md-4");
+                $(' div .fc-toolbar').addClass("row").addClass("text-center");
+                $(' div .fc-left').addClass("font-weight-bold").addClass("col-md-4");
+                $('button .btn').addClass("btn-sm");
                 $(' div .fc-right').addClass("col-md-4");
-                $(' div .fc-center').addClass("col-md-4");
-                $(' div .fc-center').css('margin-top', '5px');
-                $(' div .fc-center').css('margin-bottom', '10px');
+                $(' div .fc-center').addClass("col-md-4").css('margin-top', '5px').css('margin-bottom', '10px');
             };
         });
         var SITEURL = "{{url('/')}}";
@@ -194,6 +174,7 @@
                             })
                         },
                         onContentReady: function() {
+                            $('.patient_id').selectpicker('val', 'Mustard');
                             $('#colorselector').colorselector();
                             change1 = 0;
                             change2 = 0;
@@ -303,7 +284,7 @@
                         title: '!Confirme esta acción!',
                         content: "¿Realmente quiere eliminar esta cita?",
                         type : 'red',
-                        theme: 'bootstrap',
+                        theme: 'modern',
                         backgroundDismiss: 'no',
                         escapeKey: 'no',
                         icon: 'fas fa-fw fa-exclamation-circle',
