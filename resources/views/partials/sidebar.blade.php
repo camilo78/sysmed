@@ -48,7 +48,7 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
            aria-controls="collapseTwo">
             <i class="fas fa-fw fa-stethoscope"></i>
-            <span>Consulta</span>
+            <span>Consultas</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
@@ -120,11 +120,11 @@
                 </div>
             </div>
         </li>
-    @endcan
+        <hr class="sidebar-divider">
+@endcan
 
-    <hr class="sidebar-divider">
 
-    <!-- Sidebar Toggler (Sidebar) -->
+<!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
     </div>

@@ -121,6 +121,7 @@
                     $('button.btn').removeClass("btn-secondary");
 
                 },
+                stateSave: true,
                 language: {
                     "sProcessing": "Procesando...",
                     "sLengthMenu": "Mostrar _MENU_ registros",

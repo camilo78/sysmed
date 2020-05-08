@@ -51,27 +51,38 @@
                aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-bell fa-fw"></i>
                 <!-- Counter - Alerts -->
-                <span class="badge badge-danger badge-counter">1+</span>
+                <span class="badge badge-danger badge-counter">{{$count}}</span>
             </a>
             <!-- Dropdown - Alerts -->
             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                  aria-labelledby="alertsDropdown">
                 <h6 class="dropdown-header">
-                    {{ __('Alerts Center') }}
+                    Citas Pendientes
                 </h6>
-                <a class="dropdown-item d-flex align-items-center" href="/profile">
-                    <div class="mr-3">
-                        <div class="icon-circle bg-primary">
-                            <i class="fas fa-file-alt text-white"></i>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="small text-gray-500">Diciembre 12, 2019</div>
-                        <span class="font-weight-bold">Cita Médica con Lidia Fernandez</span>
-                    </div>
-                </a>
-                <a class="dropdown-item text-center small text-gray-500" href="#">{{ __('Show All Alerts') }}</a>
+                <div style="max-height: 420px;overflow-y: scroll;">
+                    @forelse($events as $event)
+                        <a class="dropdown-item d-flex align-items-center" href="/patients/{{$event->patient_id}}">
+                            <div class="mr-3">
+                                <div class="icon-circle" style="background-color: {{$event->color}}">
+                                    <i class="fas fa-calendar text-white"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="small text-gray-500">{{Carbon\Carbon::parse($event->start)->formatLocalized('%d %B %Y %H:%M')}}</div>
+                                <p class="font-weight-bold">{{$event->title}}</p>
+                                <p class="text-muted"
+                                   style=" margin-top: -15px;margin-bottom: -2px">{{$event->description}}</p>
+                            </div>
+                        </a>
+                    @empty
+                        <br>
+                        <p class="text-center "> No hay citas pendientes</p>
+                    @endforelse
+                </div>
+                <a class="dropdown-item text-center small text-gray-500" href="/events">Ir a calendario</a>
             </div>
+
+
         </li>
         <div class="topbar-divider d-none d-sm-block"></div>
         <!-- Nav Item - User Information -->

@@ -158,6 +158,7 @@
                     $('button.btn').removeClass("btn-secondary");
 
                 },
+                stateSave: true,
                 language: {
                     search: '',
                     "sProcessing": "Procesando...",

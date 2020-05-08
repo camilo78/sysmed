@@ -93,7 +93,7 @@ class PermissionsTableSeeder extends Seeder
             'slug' => 'settings.create',
             'description' => 'crear configuraciones del sistema',
         ]);
-        
+
         Permission::Create([
             'name' => 'Edición configuraciones',
             'slug' => 'settings.edit',

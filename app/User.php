@@ -20,7 +20,7 @@ class User extends Authenticatable
     use Eloquence;
     use FormAccessible;
     use SoftDeletes;
- 
+
     protected $dates = ['deleted_at'];
 
     /**
@@ -29,10 +29,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','address','date','phone'
+        'name', 'boos_id','email', 'boss_id','password','address','date','phone'
     ];
-
-    protected $searchableColumns = ['name', 'email', 'password','address','date','phone'];
     /**
      * The attributes that should be hidden for arrays.
      *

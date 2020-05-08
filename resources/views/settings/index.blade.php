@@ -12,9 +12,9 @@
         </div>
         <div class="col-md-4  text-center">
             <div class="btn-group" role="group" aria-label="Basic example">
-                <a href="{{ route('settings.create') }}" class="btn btn-info"><i
+                <a href="{{ route('settings.create') }}" class="btn btn-primary"><i
                         class="fas fa-fw fa-plus-circle"></i> {{ __('New') }}</a>
-                <a href="{{ route('settings.edit', $setting->id) }}" class="btn btn-primary"><i
+                <a href="{{ route('settings.edit', $setting->id) }}" class="btn btn-info"><i
                         class="fas fa-fw fa-edit"></i> {{ 'Editar' }}</a>
             </div>
         </div>

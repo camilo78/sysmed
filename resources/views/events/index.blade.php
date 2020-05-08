@@ -252,7 +252,7 @@
                     var id = info.event.id;
                     $.ajax({
                         url: SITEURL + '/events/update',
-                        data: 'title=' + title + '&start=' + start + '&end=' + end + '&description=' + description + '&patient_id=' + patient_id + '&color=' + color,
+                        data: 'title=' + title + '&start=' + start + '&end=' + end + '&id=' + id,
                         type: "POST",
                         success: function(response) {
                             Toast.fire({

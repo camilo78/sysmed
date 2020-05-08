@@ -1,3 +1,5 @@
+
+
 <div class="form-group row">
     <div class="col-sm-3 s_up">
         {{ form::label('name', 'Nombre del usuario') }}

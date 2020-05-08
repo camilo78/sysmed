@@ -127,12 +127,39 @@ Route::middleware(['auth'])->group(function () {
 	Route::get('/patients/restore/{id}', 'PatientController@restore')->name('patients.restore')
 		->middleware('can:patients.restore');
 
-	
+    // Assitant
+
+    Route::get('assistants', 'AssistantController@index')->name('assistants.index')
+        ->middleware('can:assistants.index');
+
+    Route::post('assistants/store', 'AssistantController@store')->name('assistants.store')
+        ->middleware('can:assistants.create');
+
+    Route::get('assistants/trash', 'AssistantController@trash')->name('assistants.trash')
+        ->middleware('can:assistants.trash');
+
+    Route::get('assistants/create', 'AssistantController@create')->name('assistants.create')
+        ->middleware('can:assistants.create');
+
+    Route::put('assistants/{user}', 'AssistantController@update')->name('assistants.update')
+        ->middleware('can:assistants.edit');
+
+    Route::get('assistants/{user}', 'AssistantController@show')->name('assistants.show')
+        ->middleware('can:assistants.show');
+
+    Route::get('/assistants/restore/{id}', 'AssistantController@restore')->name('assistants.restore')
+        ->middleware('can:assistants.restore');
+
+    Route::delete('assistants/{user}', 'AssistantController@destroy')->name('assistants.destroy')
+        ->middleware('can:assistants.destroy');
+
+    Route::get('assistants/{user}/edit', 'AssistantController@edit')->name('assistants.edit')
+        ->middleware('can:assistants.edit');
 
 	// Events
     //fullcalender
 	Route::get('/events','EventController@index')->name('events.index');
-	Route::post('/events/create','EventController@create');
-	Route::post('/events/update','EventController@update');
-	Route::post('/events/delete','EventController@destroy');
+	Route::post('/events/create','EventController@create')->name('events.create');
+	Route::post('/events/update','EventController@update')->name('events.update');
+	Route::post('/events/delete','EventController@destroy')->name('events.destroy');
 });

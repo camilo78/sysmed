@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/png" href="{{ asset('/favicon.png') }}" />
+    <link rel="shortcut icon" type="image/png" href="{{ asset('/favicon.png') }}"/>
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -16,6 +16,10 @@
     <!-- Scripts -->
 
     <style>
+        .collapse {
+            z-index: 10000 !important;
+        }
+
         .loader-page {
             position: fixed;
             z-index: 25000;
@@ -27,8 +31,9 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition:all .3s ease;
+            transition: all .3s ease;
         }
+
         .loader-page::before {
             content: "";
             position: absolute;
@@ -37,19 +42,25 @@
             height: 60px;
             border-radius: 50%;
             box-sizing: border-box;
-            border-left: 2px solid rgba(50, 150, 176,0);
-            border-top: 2px solid rgba(50, 150, 176,0);
+            border-left: 2px solid rgba(50, 150, 176, 0);
+            border-top: 2px solid rgba(50, 150, 176, 0);
             animation: rotarload 1s linear infinite;
             transform: rotate(0deg);
         }
+
         @keyframes rotarload {
-            0%   {transform: rotate(0deg)}
-            100% {transform: rotate(360deg)}
+            0% {
+                transform: rotate(0deg)
+            }
+            100% {
+                transform: rotate(360deg)
+            }
         }
+
         .loader-page::after {
             content: "";
             position: absolute;
-            border: 2px solid rgba(50, 150, 176,.5);
+            border: 2px solid rgba(50, 150, 176, .5);
             width: 60px;
             height: 60px;
             border-radius: 50%;
@@ -59,15 +70,16 @@
             animation: rotarload 1s ease-out infinite;
             transform: rotate(0deg);
         }
-        .nav-item.active{
-            background:none !important;
+
+        .nav-item.active {
+            background: none !important;
         }
     </style>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <!-- Scripts -->
-    <script src="{{ asset('js/custom.js') }}" ></script>
+    <script src="{{ asset('js/custom.js') }}"></script>
 
 
     <!-- Styles -->
@@ -75,65 +87,70 @@
     <link href="{{ asset('css/sb-admin-2.min.css') }}" defer rel="stylesheet">
     <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+    <link href="{{ asset('pagination/simplePagination.css') }}" rel="stylesheet">
+
     @yield('css')
 </head>
 
 <body>
-    <div id="app">
-        <!-- Page Wrapper -->
-        <div id="wrapper">
+<div id="app">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
 
-            <!-- Sidebar -->
-            @include('partials.sidebar')
-            <!-- End of Sidebar -->
+        <!-- Sidebar -->
+    @include('partials.sidebar')
+    <!-- End of Sidebar -->
 
-            <!-- Content Wrapper -->
-            <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
 
-                <!-- Main Content -->
-                <div id="content" style="background: #FFFFFF">
+            <!-- Main Content -->
+            <div id="content" style="background: #FFFFFF">
 
-                    <!-- Topbar -->
-                    @include('partials.topbar')
-                    <!-- End of Topbar -->
+                <!-- Topbar -->
+            @include('partials.topbar')
+            <!-- End of Topbar -->
 
-                    <!-- Begin Page Content -->
-                    <div class="container-fluid">
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
 
-                        <!-- Page Heading -->
-                        @yield('content')
-
-                    </div>
-                    <!-- /.container-fluid -->
+                    <!-- Page Heading -->
+                    @yield('content')
 
                 </div>
-                <!-- End of Main Content -->
-
-                <!-- Footer -->
-                @include('partials.footer')
-                <!-- End of Footer -->
+                <!-- /.container-fluid -->
 
             </div>
-            <!-- End of Content Wrapper -->
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+        @include('partials.footer')
+        <!-- End of Footer -->
 
         </div>
-        <!-- End of Page Wrapper -->
-    </div>
-<script src="{{ asset('js/app.js') }}"></script>
-<script src="{{ asset('js/sb-admin-2.min.js') }}" ></script>
-    <script type="text/javascript" >
-        $(document).ready(function() {
-            $('button.btn').addClass("btn-sm");
-            $('a.btn').addClass("btn-sm");
-        });
-        $(window).on('load', function () {
-            setTimeout(function () {
-                $(".loader-page").css({visibility:"hidden",opacity:"0"})
-            }, 300);
+        <!-- End of Content Wrapper -->
 
-        });
-    </script>
-    @yield('js')
+    </div>
+    <!-- End of Page Wrapper -->
+</div>
+<script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
+<script src="{{ asset('pagination/jquery.simplePagination.js') }}"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('button.btn').addClass("btn-sm");
+        $('a.btn').addClass("btn-sm");
+    });
+    $(window).on('load', function () {
+        setTimeout(function () {
+            $(".loader-page").css({visibility: "hidden", opacity: "0"})
+        }, 300);
+
+    });
+</script>
+@yield('js')
 
 </body>
 

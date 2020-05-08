@@ -67,7 +67,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'America/Tegucigalpa',
 
     /*
     |--------------------------------------------------------------------------
@@ -167,6 +167,7 @@ return [
          */
         //Laracasts\Flash\FlashServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
+        'App\Providers\ComposerServiceProvider',
         /*
          * Application Service Providers...
          */

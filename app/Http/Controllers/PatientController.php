@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Event as Event;
 use App\Patient;
 use App\Setting;
 use Maatwebsite\Excel\Facades\Excel;
@@ -24,27 +25,15 @@ class PatientController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index(Request $request) {
-		$patients = Patient::where('user_id', auth()->user()->id)->orderBy('id', 'DESC')->get();
+        if (!auth()->user()->boss_id == 0) {
+            $id_U = auth()->user()->boss_id;
+        } else {
+            $id_U = auth()->user()->id;
+        }
+		$patients = Patient::where('user_id', $id_U )->orderBy('id', 'DESC')->get();
 
 		return view('patients.index', compact('patients'));
 	}
-
-	public function exportPDF(Patient $patient)
-    {
-        $patients = Patient::all();
-        $settings = Setting::all();
-        \Date::setLocale('es');
-        $data = Carbon::now();
-        $date = Date::parse($data)->format('l j F Y');
-        $pdf = PDF::loadView('pdfs.Pacientes', compact('patients', 'date', 'settings'))->setPaper('a4', 'landscape');
-
-        return $pdf->download('Paciente.pdf');
-    }
-
-    public function exportxlsx()
-    {
-        return Excel::download(new PatientsExport, 'Paciente.xlsx');
-    }
 
 	public function trash(Request $request)
     {
@@ -68,7 +57,6 @@ class PatientController extends Controller {
 			$now = new \DateTime();
 		}
 
-		//dd($id);
 		return view('patients.create', compact('id', 'now'));
 	}
 
@@ -112,7 +100,17 @@ class PatientController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function show(Patient $patient) {
-		return view('patients.show', compact('patient'));
+        if (!auth()->user()->boss_id == 0) {
+            $id_U = auth()->user()->boss_id;
+        } else {
+            $id_U = auth()->user()->id;
+        }
+        $now = Carbon::now()->format('Y-m-d H:i:s');
+       //  dd($patient->id);
+        setlocale(LC_ALL,"es_ES");
+        $datos = Event::where([['patient_id', '=', $patient->id],['user_id', $id_U ]])->orderBy('start', 'asc')->get();
+        $dates = Event::where([['start' ,'>',$now],['patient_id', '=', $patient->id],['user_id', auth()->user()->id]])->orderBy('start', 'asc')->get();
+		return view('patients.show', compact('patient','dates','datos'));
 	}
 
 	/**

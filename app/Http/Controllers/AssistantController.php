@@ -15,7 +15,7 @@ use App\User;
 use App\Setting;
 
 
-class UserController extends Controller
+class AssistantController extends Controller
 {
     public function __construct()
     {
@@ -29,32 +29,10 @@ class UserController extends Controller
     public function index(Request $request)
     {
 
-        $users = User::orderBy('id', 'DESC')->get();
+        $users = User::orderBy('id', 'DESC')->where('boss_id', auth()->user()->id)->get();
 
 
-        return view('users.index', compact('users'));
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function exportxlsx()
-    {
-        return Excel::download(new UsersExport, 'Usuarios.xlsx');
-    }
-
-    public function exportPDF(User $user)
-    {
-        $users = User::all();
-        $settings = Setting::all();
-        \Date::setLocale('es');
-        $data = Carbon::now();
-        $date = Date::parse($data)->format('l j F Y');
-        $pdf = PDF::loadView('pdfs.Usuarios', compact('users', 'date', 'settings'));
-
-        return $pdf->download('Usuarios.pdf');
+        return view('assistants.index', compact('users'));
     }
 
     public function trash(Request $request)
@@ -71,7 +49,7 @@ class UserController extends Controller
     public function create(User $user)
     {
         $roles = Role::get();
-        return view('users.create', compact('user', 'roles'));
+        return view('assistants.create', compact('user', 'roles'));
     }
 
     /**
@@ -95,20 +73,20 @@ class UserController extends Controller
             'email.unique' => 'Ya existe un usuario con este email',
             'phone.required' => 'El campo teléfono es obligatorio',
         ]);
-
-
+        $boss_id = auth()->user()->id;
         $user = User::create([
             'name' => ucwords($request['name']),
             'address' => $request['address'],
             'phone'=> $request['phone'],
             'email'=> $request['email'],
+            'boss_id'=> $boss_id,
             'date'=> $request['date'],
             'password'=> bcrypt($request['password']),
         ]);
 
-        $user->roles()->sync($request->get('roles'));
+        $user->roles()->sync(3);
 
-        return redirect()->route('users.index')->with('info', "Se registró a $user->name en el sistema con exito");
+        return redirect()->route('assistants.index')->with('info', "Se registró a $user->name en el sistema con exito");
     }
 
     /**
@@ -119,7 +97,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return view('users.show', compact('user'));
+        return view('assistants.show', compact('user'));
     }
 
     /**
@@ -132,7 +110,7 @@ class UserController extends Controller
     {
         $roles = Role::get();
 
-        return view('users.edit', compact('user', 'roles'));
+        return view('assistants.edit', compact('user', 'roles'));
     }
 
     /**
@@ -162,7 +140,7 @@ class UserController extends Controller
 
         $user->roles()->sync($request->get('roles'));
 
-        return redirect()->route('users.index')->with('info', "Los datos de $request->name se editaron con exito.");
+        return redirect()->route('assistants.index')->with('info', "Los datos de $request->name se editaron con exito.");
     }
 
     /**
