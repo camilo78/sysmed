@@ -198,13 +198,13 @@
                         {
                             extend: 'excelHtml5',
                             text: '<i class="fas fa-file-excel"></i>',
-                            className: 'btn-primary btn-sm',
+                            className: 'btn-primary',
                             exportOptions: {
                                 columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
                             },
                             title: tableTitle,
                             messageTop: tableSubTitle,
-                            titleAttr: 'Exportar Excel btn-sm'
+                            titleAttr: 'Exportar Excel'
                         },
                         {
                             extend: 'pdfHtml5',
@@ -251,7 +251,7 @@
                     ],
                 }
             });
-// Add a row for the Title & Subtitle in front of the first row of the wrapper
+            // Add a row for the Title & Subtitle in front of the first row of the wrapper
             var divTitle = ''
                 + '<div class="col-sm-12 col-md-4">'
                 + '<h3> <i class="fas fa-users"></i>  ' + tableTitle + '</h3>'

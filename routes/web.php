@@ -141,19 +141,19 @@ Route::middleware(['auth'])->group(function () {
     Route::get('assistants/create', 'AssistantController@create')->name('assistants.create')
         ->middleware('can:assistants.create');
 
-    Route::put('assistants/{user}', 'AssistantController@update')->name('assistants.update')
+    Route::put('assistants/{assistant}', 'AssistantController@update')->name('assistants.update')
         ->middleware('can:assistants.edit');
 
     Route::get('assistants/{user}', 'AssistantController@show')->name('assistants.show')
         ->middleware('can:assistants.show');
 
-    Route::get('/assistants/restore/{id}', 'AssistantController@restore')->name('assistants.restore')
+    Route::get('/assistants/restore/{assistant}', 'AssistantController@restore')->name('assistants.restore')
         ->middleware('can:assistants.restore');
 
-    Route::delete('assistants/{user}', 'AssistantController@destroy')->name('assistants.destroy')
+    Route::delete('assistants/{assistant}', 'AssistantController@destroy')->name('assistants.destroy')
         ->middleware('can:assistants.destroy');
 
-    Route::get('assistants/{user}/edit', 'AssistantController@edit')->name('assistants.edit')
+    Route::get('assistants/{assistant}/edit', 'AssistantController@edit')->name('assistants.edit')
         ->middleware('can:assistants.edit');
 
 	// Events
@@ -162,4 +162,43 @@ Route::middleware(['auth'])->group(function () {
 	Route::post('/events/create','EventController@create')->name('events.create');
 	Route::post('/events/update','EventController@update')->name('events.update');
 	Route::post('/events/delete','EventController@destroy')->name('events.destroy');
+
+
+	// Consultations
+
+    Route::get('consultations', 'ConsultationController@index')->name('consultations.index')
+        ->middleware('can:consultations.index');
+
+    Route::post('consultations/store', 'ConsultationController@store')->name('consultations.store')
+        ->middleware('can:consultations.create');
+
+    Route::get('consultations/trash', 'ConsultationController@trash')->name('consultations.trash')
+        ->middleware('can:consultations.trash');
+
+    Route::get('consultations/create', 'ConsultationController@create')->name('consultations.create')
+        ->middleware('can:consultations.create');
+
+    Route::put('consultations/{consultation}', 'ConsultationController@update')->name('consultations.update')
+        ->middleware('can:consultations.edit');
+
+    Route::get('consultations/{consultation}', 'ConsultationController@show')->name('consultations.show')
+        ->middleware('can:consultations.show');
+
+    Route::get('consultations/restore/{consultation}', 'ConsultationController@restore')->name('consultations.restore')
+        ->middleware('can:consultations.restore');
+
+    Route::delete('consultations/{consultation}', 'ConsultationController@destroy')->name('consultations.destroy')
+        ->middleware('can:consultations.destroy');
+
+    Route::get('consultations/{consultation}/edit', 'ConsultationController@edit')->name('consultations.edit')
+        ->middleware('can:consultations.edit');
+
+    Route::post('consultations/search','ConsultationController@search')->name('consultations.search');
+
+    Route::delete('consultations/{consultation}', 'ConsultationController@destroy')->name('consultations.destroy')
+        ->middleware('can:consultations.destroy');
+
+    Route::get('/consultations/restore/{id}', 'ConsultationController@restore')->name('consultations.restore')
+        ->middleware('can:consultations.restore');
+
 });

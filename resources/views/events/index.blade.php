@@ -161,7 +161,7 @@
                         type: 'blue',
                         theme: 'bootstrap',
                         columnClass: 'large',
-                        closeIcon: true,
+                        closeIcon: 'Cancelar',
                         icon: 'fas fa-fw fa-calendar-alt',
                         backgroundDismiss: 'Cancelar',
                         escapeKey: 'Cancelar',
@@ -174,7 +174,7 @@
                             })
                         },
                         onContentReady: function() {
-                            $('.patient_id').selectpicker('val', 'Mustard');
+                            $('.patient_id').selectpicker();
                             $('#colorselector').colorselector();
                             change1 = 0;
                             change2 = 0;

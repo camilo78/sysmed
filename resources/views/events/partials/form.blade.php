@@ -1,8 +1,7 @@
 +
 '<div class="row">' +
 '<div class="form-group col-md-12">'+
-  '<label>Paciente</label>' +
-  '<select class="form-control patient_id " data-live-search="true title="Selecciona un paciente" id="patient_id" name="patient_id">' +
+  '<select class="form-control patient_id " data-live-search="true" title="Selecciona un paciente" id="patient_id" name="patient_id">' +
   	'<option>Selecione Paciente</option>' +
     @foreach($patients as $patient)
   	'<option value="{{ $patient->id }}">{{ $patient->surname1 }} {{ $patient->surname2 }} {{ $patient->name1 }} {{ $patient->name2 }}</option>' +
@@ -10,16 +9,14 @@
   '</select>' +
 '</div>'+
 '<div class="form-group col-sm-6">'+
-  '<label>Centro de Atención</label>' +
   '<select class="form-control setting_id" title="Seleccione Clínica" id="setting_id" name="setting_id">' +
-    '<option>Seleccione Centro</option>' +
+    '<option>Seleccione Centro de Atención</option>' +
     @foreach($settings as $setting)
     '<option value="{{ $setting->id }}">{{ $setting->name }}</option>' +
     @endforeach
   '</select>' +
 '</div>'+
 '<div class="form-group col-sm-6">'+
-  '<label>Color</label>' +
     '<select class="colorselector" id="colorselector">' +
       '<option value="#3788D8" data-color="#3788D8">Celeste</option>' +
       '<option value="#00BCD4" data-color="#00BCD4" >Cían</option>' +

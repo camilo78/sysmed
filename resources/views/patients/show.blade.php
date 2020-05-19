@@ -20,11 +20,7 @@
                     {{ \Carbon\Carbon::parse($patient->birth)->age }} Años y
                     {{ \Carbon\Carbon::parse($patient->birth)->diff(\Carbon\Carbon::now())->format('%m meses') }}
                 @endif </span> <span class="float-md-right small">
-                            @if($patient->city_town)<i class="fas fa-map-marked-alt"></i>
-                {{ $patient->city_town }}&nbsp;
-                @else
-                    <i class="fas fa-map-marked-alt"></i> Sin Dirección &nbsp;
-                @endif
+
                 @if($patient->phone1) <a class="show text-decoration-none"
                                          href="tel:{{ $patient->phone1 }}"><i class="fas fa-mobile-alt"></i>
                                 {{ $patient->phone1 }}</a>&nbsp;
@@ -79,7 +75,8 @@
         </div>
         <div class="col-xl-4">
             <div class="card-body text-center">
-                <span class="float-left big2"><i class="fas fa-clipboard"></i> Expediente:</span> <span class="float-right big2 text-warning">
+                <span class="float-left big2"><i class="fas fa-clipboard"></i> Expediente:</span> <span
+                    class="float-right big2 text-warning">
                             #{{ $patient->patient_code }}</span>
                 <br>
                 <hr>
@@ -219,8 +216,9 @@
             height: 20px;
             z-index: 400;
         }
+
         @media (max-width: 576px) {
-            .item{
+            .item {
                 width: 100%;
             }
         }

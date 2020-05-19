@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Sofa\Eloquence\Eloquence;
 
-class Patient extends Model {
+class Patient extends Model
+{
 	use Eloquence;
 	use FormAccessible;
 	use SoftDeletes;
@@ -35,4 +36,10 @@ class Patient extends Model {
 		'address',
 		'city_town',
 	];
+
+    public function consultations()
+    {
+        return $this->hasMany('App\Consultation');
+    }
+
 }

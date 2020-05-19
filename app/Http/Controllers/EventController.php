@@ -38,7 +38,7 @@ class EventController extends Controller
             $id_U = auth()->user()->id;
         }
         $insertArr = ['title' => $request->title, 'description' => $request->description, 'start' => $request->start, 'end' => $request->end, 'user_id' => $id_U, 'patient_id' => $request->patient_id, 'color' => $request->color, 'created_at' => now()];
-        $event = Event::insert($insertArr);
+        Event::insert($insertArr);
         $eve = Event::where('user_id', $id_U)->get()->last();
         return Response::json($eve);
     }

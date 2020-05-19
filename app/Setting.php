@@ -22,5 +22,7 @@ class Setting extends Model
         'user_id','name', 'image', 'address','phone','web'
     ];
 
-    protected $searchableColumns = ['name', 'image','address','phone','web'];
-}
+    public function consultations()
+    {
+        return $this->hasMany('App\Consultation');
+    }}

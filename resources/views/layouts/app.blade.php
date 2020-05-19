@@ -58,7 +58,6 @@
         }
 
         .loader-page::after {
-            content: "";
             position: absolute;
             border: 2px solid rgba(50, 150, 176, .5);
             width: 60px;
@@ -140,6 +139,9 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
+            $('ul.sidebar').addClass("toggled");
+        };
         $('button.btn').addClass("btn-sm");
         $('a.btn').addClass("btn-sm");
     });
