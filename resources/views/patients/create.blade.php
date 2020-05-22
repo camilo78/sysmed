@@ -28,33 +28,7 @@
     <script
         src="https://cdn.jsdelivr.net/gh/RobinHerbots/jquery.inputmask@5.0.0-beta.87/dist/jquery.inputmask.min.js"></script>
     <script>
-        function mostrar_control() {
-            var select = document.getElementById("myselect");
-            var inputText = document.getElementById("Texto");
-            var inputText1 = document.getElementById("Texto1");
-            if (select.options[select.selectedIndex].value == "M") {
-                inputText.style.display = "none";
-                inputText1.style.display = "none";
-            } else {
-                inputText.style.display = "block";
-            }
-        }
-
-        function mostrar_control1() {
-            var select = document.getElementById("myselect1");
-            var inputText = document.getElementById("Texto1");
-            if (select.options[select.selectedIndex].value == "S") {
-                inputText.style.display = "none";
-            } else {
-                inputText.style.display = "block";
-            }
-        }
-
-        function PadLeft(value, length) {
-            return (value.toString().length < length) ? PadLeft("0" + value, length) :
-                value;
-        }
-
+    
         function calcularEdad(fecha) {
 // Si la fecha es correcta, calculamos la edad
             if (typeof fecha != "string" && fecha && esNumero(fecha.getTime())) {

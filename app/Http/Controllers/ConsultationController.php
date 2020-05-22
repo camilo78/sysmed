@@ -23,19 +23,19 @@ class ConsultationController extends Controller
      */
     public function index(Request $request)
     {
+        if (!auth()->user()->boss_id == 0) {
+            $id_U = auth()->user()->boss_id;
+        } else {
+            $id_U = auth()->user()->id;
+        }
+
         if ($request->ajax()) {
-            $consultations = Consultation::get();
-            $count = Consultation::count();
+            $consultations = Consultation::where('user_id', $id_U)->get();
+            $count = Consultation::where('user_id', $id_U)->count();
             if ($count == 0) {
                 $data = array();
                 $obj = json_decode(json_encode($data), FALSE);
-                return DataTables::of($obj)->addIndexColumn()
-                    ->addColumn('action', function ($row) {
-                        $btn = '<form class="form-delete" id="' . $row->id . '" action="' . route("consultations.destroy", $row->id) . '" method="POST"><div class="btn-group">' . csrf_field() . method_field('DELETE') . '<a href="' . route('consultations.show', $row->id) . '" data-toggle="tooltip"  title="Editar" class="edit btn btn-outline-info btn-sm"><i class="fas fa-list"></i></a>';
-                        $btn = $btn . '<a href="' . route('consultations.edit', $row->id) . '" data-toggle="tooltip"  title="Editar" class="edit btn btn-outline-primary btn-sm"><i class="fas fa-edit"></i></a> <button class="btn btn-outline-danger btn-sm submit" data-id="' . $row->id . '" data-msj="¿Realmente quiere eliminar la consulta de ' . $row->patient . '?"><i class="fas fa-trash-alt"></i></button></div> </form>';
-                        return $btn;
-                    })
-                    ->rawColumns(['action'])->make(true);
+                return DataTables::of($obj)->addIndexColumn()->rawColumns(['action'])->make(true);
             } else {
                 foreach ($consultations as $consultation) {
                     $nestedData['id'] = $consultation->id;
@@ -50,7 +50,7 @@ class ConsultationController extends Controller
 
                 return DataTables::of($obj)->addIndexColumn()
                     ->addColumn('action', function ($row) {
-                        $btn = '<form class="form-delete" id="' . $row->id . '" action="' . route("consultations.destroy", $row->id) . '" method="POST"><div class="btn-group">' . csrf_field() . method_field('DELETE') . '<a href="' . route('consultations.show', $row->id) . '" data-toggle="tooltip"  title="Editar" class="edit btn btn-outline-info btn-sm"><i class="fas fa-list"></i></a>';
+                        $btn = '<form class="form-delete" id="' . $row->id . '" action="' . route("consultations.destroy", $row->id) . '" method="POST">' . csrf_field() . method_field('DELETE') . '<div class="btn-group"><a href="' . route('consultations.show', $row->id) . '" data-toggle="tooltip"  title="Editar" class="edit btn btn-outline-info btn-sm"><i class="fas fa-list"></i></a>';
                         $btn = $btn . '<a href="' . route('consultations.edit', $row->id) . '" data-toggle="tooltip"  title="Editar" class="edit btn btn-outline-primary btn-sm"><i class="fas fa-edit"></i></a> <button class="btn btn-outline-danger btn-sm submit" data-id="' . $row->id . '" data-msj="¿Realmente quiere eliminar la consulta de ' . $row->patient . '?"><i class="fas fa-trash-alt"></i></button></div> </form>';
                         return $btn;
                     })
@@ -58,25 +58,23 @@ class ConsultationController extends Controller
             }
 
         }
-        return view('consultations.index', compact('data'));
+        return view('consultations.index');
     }
 
     public function trash(Request $request)
     {
-
+        if (!auth()->user()->boss_id == 0) {
+            $id_U = auth()->user()->boss_id;
+        } else {
+            $id_U = auth()->user()->id;
+        }
         if ($request->ajax()) {
-            $consultations = Consultation::onlyTrashed()->get();
-            $count = Consultation::onlyTrashed()->count();
+            $consultations = Consultation::where('user_id', $id_U)->onlyTrashed()->get();
+            $count = Consultation::where('user_id', $id_U)->onlyTrashed()->count();
             if ($count == 0) {
                 $data = array();
                 $obj = json_decode(json_encode($data), FALSE);
-                return DataTables::of($obj)->addIndexColumn()
-                    ->addColumn('action', function ($row) {
-                        $btn = '<form class="form-delete" id="' . $row->id . '" action="' . route("consultations.destroy", $row->id) . '" method="POST"><div class="btn-group">' . csrf_field() . method_field('DELETE') . '<a href="' . route('consultations.show', $row->id) . '" data-toggle="tooltip"  title="Editar" class="edit btn btn-outline-info btn-sm"><i class="fas fa-list"></i></a>';
-                        $btn = $btn . '<a href="' . route('consultations.edit', $row->id) . '" data-toggle="tooltip"  title="Editar" class="edit btn btn-outline-primary btn-sm"><i class="fas fa-edit"></i></a> <button class="btn btn-outline-danger btn-sm submit" data-id="' . $row->id . '" data-msj="¿Realmente quiere eliminar la consulta de ' . $row->patient . '?"><i class="fas fa-trash-alt"></i></button></div> </form>';
-                        return $btn;
-                    })
-                    ->rawColumns(['action'])->make(true);
+                return DataTables::of($obj)->addIndexColumn()->rawColumns(['action'])->make(true);
             } else {
                 foreach ($consultations as $consultation) {
                     $nestedData['id'] = $consultation->id;
@@ -91,7 +89,7 @@ class ConsultationController extends Controller
 
                 return DataTables::of($obj)->addIndexColumn()
                     ->addColumn('action', function ($row) {
-                        $btn = '<form class="form-delete" id="' . $row->id . '" action="' . route('consultations.restore', $row->id) . '" method="GET"><div class="btn-group">' . csrf_field();
+                        $btn = '<form class="form-delete" id="' . $row->id . '" action="' . route('consultations.restore', $row->id) . '" method="GET">'.csrf_field();
                         $btn = $btn . '<button class="btn btn-outline-warning btn-sm submit" data-id="' . $row->id . '" data-msj="¿Realmente quiere restaurar los datos de ' . $row->patient . '?"><i class="fas fa-trash-restore-alt"></i></button></div></form>';
                         return $btn;
                     })
@@ -99,7 +97,7 @@ class ConsultationController extends Controller
             }
 
         }
-        return view('consultations.trash', compact('data'));
+        return view('consultations.trash');
     }
 
     /**
@@ -129,6 +127,7 @@ class ConsultationController extends Controller
      */
     public function store(Request $request)
     {
+        
         $request->validate([
             'date-hour' => 'required|max:25',
             'setting_id' => 'required|max:25',

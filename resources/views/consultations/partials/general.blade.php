@@ -5,6 +5,7 @@
 <div class="row">
     <div class="card border-info col-md-12 bg-gray-100">
         <div class="row mt-2 mb-2">
+            <input type="hidden" name="user_id" value="{{auth()->user()->id}}" >
             <div class="mt-1 mb-2 col-md-3">
                 {{ form::label('date-hour', 'Fecha Hora') }} <span class="text-danger">*</span>
                 {{ Form::date('date-hour', null, ['class' => 'form-control form-control-sm','id'=>'date-hour','required'],'Y-m-d') }}

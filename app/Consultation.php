@@ -16,7 +16,7 @@ class Consultation extends Model
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
-        'date', 'setting_id','patient_id','insurace','company','policy','relation','height','height_unit','weight','weight_unit',
+        'date', 'setting_id','patient_id','user_id','insurace','company','policy','relation','height','height_unit','weight','weight_unit',
         'temp','temp_unit','cranial','cranial_unit','waist','waist_unit','pressure','cardiac','breathing'
         ,'measurements_note',
     ];

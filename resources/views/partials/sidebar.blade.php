@@ -36,7 +36,7 @@
             <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Acciones:</h6>
-                    <a class="collapse-item" href="{{ route('patients.index') }}">{{ __('Tabla Pacientes') }}</a>
+                    <a class="collapse-item" href="{{ route('patients.index') }}">{{ __('Pacientes') }}</a>
                     <a class="collapse-item" href="{{ route('patients.create') }}">Nuevo Paciente</a>
                 </div>
             </div>

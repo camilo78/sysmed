@@ -25,10 +25,10 @@
 	    </div>
 	    <div class="col-sm-3 s_up">
 	        {{ form::label('document_type', 'Tipo de Documento') }}
-	        {!! Form::select('document_type',['ID number' => __('ID number'),'Passport'=>__('Passport')],null, ['class'=>'form-control','placeholder'=>'Seleccione tipo de documento']) !!}
-	        @if ($errors->has('document_type'))
-	        <small class="text-danger">{{ $errors->first('document_type') }}</small>
-	        @endif
+		    {!! Form::select('document_type',['No document'=>__('Sin documento'),'ID number' => __('ID number'),'Passport'=>__('Passport')],null, ['class'=>'form-control']) !!}
+		    @if ($errors->has('document_type'))
+		        <small class="text-danger">{{ $errors->first('document_type') }}</small>
+		     @endif
     	</div>
     	<div class="col-sm-3 s_up">
 	        {{ form::label('document', 'No. de Documento') }}
@@ -47,6 +47,7 @@
 	    <div class="col-sm-3 s_up">
 	        {{ form::label('kinship', 'Parentezco ') }}
 	        {!! Form::select('kinship',[
+	        	'No responsible'=>__('Sin responsable'),
 	        	'Spouse'=>__('Spouse'),
 	        	'Mother'=>__('Mother'),
 	        	'Father' => __('Father'),
@@ -54,7 +55,7 @@
 	        	'Son or Daughter'=>__('Son or Daughter'),
 	        	'Aunt or Uncle'=>__('Aunt or Uncle'),
 	        	'Cousin'=>__('Cousin'),
-	        	'Other'=>__('Other')],null, ['class'=>'form-control','placeholder'=>'Seleccione el parentezco','id'=>'kinship']) !!}
+	        	'Other'=>__('Other')],null, ['class'=>'form-control','id'=>'kinship']) !!}
 	        @if ($errors->has('kinship'))
 	        <small class="text-danger">{{ $errors->first('kinship') }}</small>
 	        @endif

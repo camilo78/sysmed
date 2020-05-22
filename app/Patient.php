@@ -23,6 +23,7 @@ class Patient extends Model
 		'surname2',
 		'married_name',
 		'gender',
+		'civil',
 		'birth',
 		'patient_code',
 		'document_type',

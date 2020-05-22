@@ -24,38 +24,7 @@
 @endsection
 @section('js')
     <script>
-        var ip = '190.242.25.31'
-        var access_key = '4f1c52339ca07506aca804b35ebac390';
-        $.get('http://api.ipstack.com/' + ip + '?access_key=' + access_key, function (response) {
-            $("#country").val(response.country_name);
-        }, "jsonp");
 
-        function mostrar_control() {
-            var select = document.getElementById("myselect");
-            var inputText = document.getElementById("Texto");
-            var inputText1 = document.getElementById("Texto1");
-            if (select.options[select.selectedIndex].value == "M") {
-                inputText.style.display = "none";
-                inputText1.style.display = "none";
-            } else {
-                inputText.style.display = "block";
-            }
-        }
-
-        function mostrar_control1() {
-            var select = document.getElementById("myselect1");
-            var inputText = document.getElementById("Texto1");
-            if (select.options[select.selectedIndex].value == "S") {
-                inputText.style.display = "none";
-            } else {
-                inputText.style.display = "block";
-            }
-        }
-
-        function PadLeft(value, length) {
-            return (value.toString().length < length) ? PadLeft("0" + value, length) :
-                value;
-        }
 
         function calcularEdad(fecha) {
 // Si la fecha es correcta, calculamos la edad

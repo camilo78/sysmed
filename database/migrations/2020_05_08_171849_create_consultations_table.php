@@ -16,6 +16,8 @@ class CreateConsultationsTable extends Migration
         Schema::create('consultations', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('date-hour', 25);
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedBigInteger('setting_id');
             $table->foreign('setting_id')->references('id')->on('settings');
             $table->unsignedBigInteger('patient_id');

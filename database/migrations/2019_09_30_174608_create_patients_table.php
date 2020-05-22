@@ -21,13 +21,14 @@ class CreatePatientsTable extends Migration {
 			$table->string('surname2', 25)->nullable();
 			$table->string('married_name', 25)->nullable();
 			$table->enum('gender', ['M', 'F']);
+			$table->enum('civil', ['Single', 'Married']);
 			$table->string('birth', 25);
 			$table->string('patient_code', 25);
-			$table->string('document_type', 25)->nullable();
+			$table->enum('document_type', ['No document','ID number', 'Passport']);
 			$table->string('document', 25)->nullable();
-			$table->enum('status', ['active', 'disabled'])->default('active');
+			$table->enum('status', ['Active', 'Disabled'])->default('Active');
 			$table->string('name_relation', 50)->nullable();
-			$table->string('kinship', 25)->nullable();
+			$table->enum('kinship', ['No responsible','Spouse', 'Mother','Father', 'Partner','Son or Daughter', 'Aunt or Uncle','Cousin','Other']);
 			$table->string('phone1', 25)->nullable();
 			$table->string('phone2', 25)->nullable();
 			$table->string('email', 50)->nullable();

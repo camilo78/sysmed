@@ -1,4 +1,4 @@
-<div class="row" style="margin-top: -15px">
+ <div class="row" style="margin-top: -15px">
     <div class="col-sm-3 s_up">
         {{ form::label('name1', 'Primer Nombre') }} <span class="text-danger">*</span>
         {{ form::text('name1', null, ['class' => 'form-control','id'=>'name1','required']) }}
@@ -34,14 +34,15 @@
         <small class="text-danger">{{ $errors->first('gender') }}</small>
         @endif
     </div>
-     <div class="col-sm-3 s_up"  style="display: none;" id="Texto">
+    <div class="col-sm-3 s_up" >
         {{ form::label('civil', 'Estado Civil' ) }}
-        {!! Form::select('civil',['S'=>'Soltera','M' => 'Casada'],null, ['class'=>'form-control myselect', "id"=>"myselect1", "onchange='mostrar_control1()'",'placeholder'=>'Seleccione estado civil']) !!}
+        {!! Form::select('civil',['Single' => 'Single','Married'=>'Married'],null, ['class'=>'form-control']) !!}
         @if ($errors->has('civil'))
         <small class="text-danger">{{ $errors->first('civil') }}</small>
         @endif
+       
     </div>
-    <div class="col-sm-3 s_up" style="display: none" id="Texto1">
+    <div class="col-sm-3 s_up">
         {{ form::label('married_name', 'Apellído de Casada') }}
         {{ form::text('married_name', null, ['class' => 'form-control']) }}
         @if ($errors->has('married_name'))
@@ -50,7 +51,7 @@
     </div>
     <div class="col-sm-3 s_up">
         {{ form::label('status', 'Estado') }}
-        {!! Form::select('status',['active' => __('Active'),'disabled'=>__('Disabled')],null, ['class'=>'form-control myselect', "id"=>"status", "onchange='mostrar_control()'"]) !!}
+        {!! Form::select('status',['active' => __('Active'),'disabled'=>__('Disabled')],null, ['class'=>'form-control', "id"=>"status"]) !!}
         @if ($errors->has('status'))
         <small class="text-danger">{{ $errors->first('status') }}</small>
         @endif

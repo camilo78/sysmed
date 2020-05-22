@@ -15,7 +15,6 @@
     </div>
     <table class="table table-hover small" id="dtPluginExample" style="width:100%">
         <thead>
-        <th>N°</th>
         <th>Paciente</th>
         <th>Clínica</th>
         <th>Fecha</th>
@@ -38,7 +37,7 @@
 
     <script>
         $(document).ready(function () {
-            var URLSHOW = '{{URL::to('patients')}}/';
+            var URLSHOW = '{{URL::to('consultations')}}/';
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -58,10 +57,11 @@
                 },
                 "processing": true,
                 "serverSide": true,
+                stateSave: true,
                 language: {
                     search: '',
                     "sProcessing": "Procesando...",
-                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sLengthMenu": "_MENU_",
                     "sZeroRecords": "No se encontraron resultados",
                     "sEmptyTable": "Ningún dato disponible en esta tabla =(",
                     "sInfo": "Mostrando del _START_ al _END_ de un total de _TOTAL_ registros",
@@ -89,7 +89,6 @@
                 },
                 ajax: "{{ route('consultations.index') }}",
                 "columns": [
-                    {data: "id", name: "id"},
                     {data: "patient", name: "patient"},
                     {data: "settings", name: "settings"},
                     {data: "date", name: "date"},
@@ -99,7 +98,7 @@
                 ],
 
                 responsive: true,
-                dom: "<'row rio'<'col-sm-12 text-center col-md-4'B><'col-sm-12 col-md-4'f>>" +
+                dom: "<'row rio'<'col-sm-12 text-center col-md-4'B><'col-sm-12 col-md-2'l><'col-sm-12 col-md-3'f>>" +
                     "<'row'<'col-sm-12'tr>>" +
                     "<'row small'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
 
@@ -164,8 +163,8 @@
             });
 // Add a row for the Title & Subtitle in front of the first row of the wrapper
             var divTitle = ''
-                + '<div class="col-sm-12 col-md-4">'
-                + '<h3> <i class="fas fa-stethoscope"></i>  ' + tableTitle + '</h3>'
+                + '<div class="col-sm-12 col-md-3">'
+                + '<h5> <i class="fas fa-stethoscope"></i>  ' + tableTitle + '</h5>'
                 + '</div>';
             $(divTitle).prependTo('.rio');
             $("input.form-control.form-control-sm").attr('placeholder', 'Buscar...');
