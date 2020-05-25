@@ -15,11 +15,13 @@
     </div>
     <table class="table table-hover small" id="dtPluginExample" style="width:100%">
         <thead>
+            <tr>
         <th>Paciente</th>
         <th>Clínica</th>
         <th>Fecha</th>
         <th>Hora</th>
         <th>Opciones</th>
+    </tr>
         </thead>
     </table>
 @endsection

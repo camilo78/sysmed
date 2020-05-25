@@ -14,83 +14,24 @@
             @endif
         </div>
     </div>
-    <table class="table table-hover table-responsive-lg small" id="dtPluginExample" width="100%">
+    <table class="table table-hover dt-responsive small" id="dtPluginExample" width="100%">
         <thead>
         <tr>
-            <th scope="col">Expediente</th>
             <th scope="col">Nombre</th>
-            <th scope="col">Apellidos</th>
-            <th scope="col">Correo</th>
-            <th scope="col">Teléfono</th>
-            <th scope="col">Documento</th>
-            <th scope="col">Estado</th>
-            <th scope="col">Edad</th>
             <th scope="col">Sx</th>
-            <th scope="col" class="text-center">Acciones</th>
+            <th scope="col">Documento</th>
+            <th scope="col">Edad</th>
+            <th scope="col">Teléfonos</th>
+            <th scope="col">Email</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Expediente</th>
+            <th scope="col">Opciones</th>
         </tr>
         </thead>
         <tbody>
-        @forelse($patients as $patient)
-            <tr>
-                <td style="vertical-align:middle;"><i
-                        class="fas fa-folder-open"></i> {{ $patient->patient_code }}</td>
-                <td style="vertical-align:middle;">{{ ucwords($patient->name1 .' '. $patient->name2) }}</td>
-                <td style="vertical-align:middle;">{{ ucwords($patient->surname1. ' ' .$patient->surname2) }}</td>
-                <td style="vertical-align:middle;">
-                    @if(!empty($patient->email))
-                        {{ $patient->email }}
-                    @else
-                        Sin email
-                    @endif
-                </td>
-                <td style="vertical-align:middle;">
-                    @if(!empty($patient->phone1 or $patient->phone2))
-                        {{ $patient->phone1 }}<br>
-                        {{ $patient->phone2 }}
-                    @else
-                        Sin Telefonos
-                    @endif
-
-                </td>
-                <td style="vertical-align:middle;">
-                    @if(!empty($patient->document_type))
-                        {{ __("$patient->document_type")}}<br>{{$patient->document}}
-                    @else
-                        Sin Documento
-                    @endif
-                </td>
-                <td style="vertical-align:middle; color: {{ $patient->status === "active" ? "#1cc88a" : "grey" }}"
-                    data-id="{{ $patient->id }}">{{ ucwords(__($patient->status))}}</td>
-                <td style="vertical-align:middle;">
-                    @if(\Carbon\Carbon::parse($patient->birth)->age === 0)
-                        {{ \Carbon\Carbon::parse($patient->birth)->diff(\Carbon\Carbon::now())->format('%m m + %d d') }}
-                    @else(\Carbon\Carbon::parse($patient->date)->age < 3)
-                        {{ \Carbon\Carbon::parse($patient->birth)->age }} A +
-                        {{ \Carbon\Carbon::parse($patient->birth)->diff(\Carbon\Carbon::now())->format('%m m') }}
-                    @endif
-                </td>
-                <td style="vertical-align:middle;">{{ __($patient->gender) }}</td>
-                <td class="text-center" style="vertical-align:middle;">
-                    <form class="form-delete" id="{{ $patient->id }}"
-                          action="{{ route('patients.restore', $patient->id) }}" method="GET">
-                        {{ csrf_field() }}
-                        @can('patients.restore')
-                            <button class="btn btn-outline-warning btn-sm submit" type="button"
-                                    data-id="{{ $patient->id }}"
-                                    data-msj="¿Realmente quiere restaurar los datos de <b>{{ $patient->name1 .' '. $patient->surname1 }}</b>?"
-                                    type="button"><i class="fas fa-trash-restore-alt"></i>
-                            </button>
-                        @endif
-                    </form>
-                </td>
-            </tr>
-        @empty
-        @endforelse
+        
         </tbody>
     </table>
-
-
-
 
 @endsection
 
@@ -108,15 +49,28 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            var tableTitle = 'Pacientes Eliminados';
+            var URLSHOW = '{{URL::to('patients')}}/';
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            var meses = new Array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
+            var diasSemana = new Array("Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado");
+            var f = new Date();
+            var fecha = diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.getMonth()] + " de " + f.getFullYear();
+            var tableTitle = 'Pacintes Eliminados';
+            var tableSubTitle = 'Total de consultas eliminadas al ' + fecha;
             var tableBS4 = $('#dtPluginExample').DataTable({
                 drawCallback: function () {
                     $('#dtPluginExample_paginate ul.pagination').addClass("pagination-sm");
                     $('button.btn').removeClass("btn-secondary");
 
                 },
-                stateSave: true,
+                "processing": true,
+                "serverSide": true,
                 language: {
+                    search: '',
                     "sProcessing": "Procesando...",
                     "sLengthMenu": "Mostrar _MENU_ registros",
                     "sZeroRecords": "No se encontraron resultados",
@@ -144,6 +98,20 @@
                         "colvis": "Visibilidad"
                     }
                 },
+                ajax: "{{ route('patients.trash') }}",
+                "columns": [
+                    {data: "name", name: "name"},
+                    {data: "gender", name: "gender"},
+                    {data: "document", name: "document"},
+                    {data: "age", name: "age"},
+                    {data: "phone", name: "phone"},
+                    {data: "email", name: "email"},
+                    {data: "status", name: "status"},
+                    {data: "patient_code", name: "patient_code"},
+                    {data: 'action', name: 'action', orderable: false, searchable: false},
+
+                ],
+
                 responsive: true,
                 dom: "<'row rio'<'col-sm-12 text-center col-md-4'B><'col-sm-12 col-md-4'f>>" +
                     "<'row'<'col-sm-12'tr>>" +
@@ -151,9 +119,8 @@
 
                 buttons: {
                     buttons: [
-
                         {
-                            text: 'Regresar a Pacientes',
+                            text: 'Regresar a Pacintes',
                             className: 'btn-light btn-sm',
                             init: (api, node, config) => $(node).removeClass('btn-secondary'),
                             action: function (e, dt, node, config) {
@@ -161,15 +128,16 @@
                                 return false;
                             }
                         }
-                    ],
+                    ],  
                 }
             });
-// Add a row for the Title & Subtitle in front of the first row of the wrapper
+            // Add a row for the Title & Subtitle in front of the first row of the wrapper
             var divTitle = ''
                 + '<div class="col-sm-12 col-md-4">'
                 + '<h3> <i class="fas fa-users"></i>  ' + tableTitle + '</h3>'
                 + '</div>';
             $(divTitle).prependTo('.rio');
+            $("input.form-control.form-control-sm").attr('placeholder', 'Buscar...');
 
             $('tfoot tr th').removeClass("bg-warning bg-light bg-success text-left text-center text-right").addClass("bg-dark text-white").css("font-size", "0.85rem");
             $('tfoot tr th:eq(1)').addClass("text-left");

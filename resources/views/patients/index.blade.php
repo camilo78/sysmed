@@ -24,7 +24,7 @@
             <th scope="col">Email</th>
             <th scope="col">Estado</th>
             <th scope="col">Expediente</th>
-            <th>Opciones</th>
+            <th scope="col">Opciones</th>
         </tr>
         </thead>
         <tbody>

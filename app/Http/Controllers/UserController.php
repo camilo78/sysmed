@@ -144,6 +144,13 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+
+        if($request->roles[0] == 3){
+            $boss_id = auth()->user()->id;
+        }else{
+            $boss_id = 0;
+        }
+
         // Editar Usuario
         $request->validate([
             'name' => 'required',
@@ -154,6 +161,15 @@ class UserController extends Controller
             'name.required' => 'El campo nombre es obligatorio',
             'email.unique' => 'Ya existe un usuario con este email',
             'phone.required' => 'El campo teléfono es obligatorio',
+        ]);
+
+        $user->update([
+            'name' => ucwords($request['name']),
+            'address' => $request['address'],
+            'phone'=> $request['phone'],
+            'email'=> $request['email'],
+            'boss_id'=> $boss_id,
+            'date'=> $request['date'],
         ]);
 
         $user->update($request->all());

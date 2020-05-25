@@ -16,13 +16,18 @@
     </div>
     <table class="table table-hover small" id="dtPluginExample" style="width:100%">
         <thead>
-        <th>N°</th>
-        <th>Paciente</th>
-        <th>Clínica</th>
-        <th>Fecha</th>
-        <th>Hora</th>
-        <th>Opciones</th>
+        <tr>
+        <th scope="col">N°</th>
+        <th scope="col">Paciente</th>
+        <th scope="col">Clínica</th>
+        <th scope="col">Fecha</th>
+        <th scope="col">Hora</th>
+        <th scope="col">Opciones</th>
+         </tr>
         </thead>
+        <tbody>
+        
+        </tbody>
     </table>
 @endsection
 @section('css')
@@ -107,63 +112,18 @@
                 buttons: {
                     buttons: [
                         {
-                            extend: 'excelHtml5',
-                            text: '<i class="fas fa-file-excel"></i>',
-                            className: 'btn-primary btn-sm',
-                            exportOptions: {
-                                columns: [0, 1, 2, 3, 4]
-                            },
-                            title: tableTitle,
-                            messageTop: tableSubTitle,
-                            titleAttr: 'Exportar Excel'
-                        },
-                        {
-                            extend: 'pdfHtml5',
-                            text: '<i class="fas fa-file-pdf"></i>',
-                            className: 'btn-primary btn-sm',
-                            orientation: 'landscape',
-                            exportOptions: {
-                                columns: [0, 1, 2, 3, 4]
-                            },
-                            title: tableTitle,
-                            messageTop: tableSubTitle,
-                            titleAttr: 'Exportar PDF'
-                        },
-                        {
-                            extend: 'print',
-                            text: '<i class="fas fa-print"></i>',
-                            className: 'btn-primary btn-sm',
-                            exportOptions: {
-                                columns: [0, 1, 2, 3, 4]
-                            },
-                            title: tableTitle,
-                            messageTop: tableSubTitle,
-                            titleAttr: 'Imprimir Tabla'
-                        },
-                        {
-                            text: '<i class="fas fa-plus-circle"></i>',
-                            titleAttr: 'Nueva Consulata',
-                            className: 'btn-primary btn-sm',
-                            init: (api, node, config) => $(node).removeClass('btn-secondary'),
-                            action: function (e, dt, node, config) {
-                                window.location.href = '{{ route('consultations.create') }}';
-                                return false;
-                            }
-                        },
-                        {
-                            text: '<i class="fas fa-table"></i>',
-                            className: 'btn-primary btn-sm',
-                            titleAttr : 'Tabla Consultas',
+                            text: 'Regresar a Consultas',
+                            className: 'btn-light btn-sm',
                             init: (api, node, config) => $(node).removeClass('btn-secondary'),
                             action: function (e, dt, node, config) {
                                 window.location.href = '{{ route('consultations.index') }}';
                                 return false;
                             }
                         }
-                    ],
+                    ],  
                 }
             });
-// Add a row for the Title & Subtitle in front of the first row of the wrapper
+            // Add a row for the Title & Subtitle in front of the first row of the wrapper
             var divTitle = ''
                 + '<div class="col-sm-12 col-md-4">'
                 + '<h3> <i class="fas fa-stethoscope"></i>  ' + tableTitle + '</h3>'
